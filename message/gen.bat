@@ -1,0 +1,2 @@
+CppClassGenerator.exe ..\messagetemplates\
+ 

@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\ExecutorManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Executor.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{3f233346-5a9b-4663-8008-d72911e889d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="message">
+      <UniqueIdentifier>{aed24557-7774-4b3b-b8b0-f76eb16d1ec7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{d0177160-f59f-4294-a89a-df104ca54213}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\message\MessageAbilityQuery.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageAbilityQueryACK.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageAbilityQueryACKHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageAbilityQueryHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageExceptionReport.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageExceptionReportHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageGreeting.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageGreetingHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageHeartBeat.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageHeartBeatHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageIntro.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageIntroHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageResourcesQuery.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageResourcesQueryACK.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageResourcesQueryACKHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageResourcesQueryHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessagesHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageStatusReport.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageStatusReportHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTaskCancel.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTaskCancelHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTaskContinue.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTaskContinueHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTaskDeliver.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTaskDeliverACK.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTaskDeliverACKHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTaskDeliverHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTaskPause.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTaskPauseHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTaskQuery.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTaskQueryACK.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTaskQueryACKHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTaskQueryHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTaskRestart.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTaskRestartHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ExecutorManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Executor.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
