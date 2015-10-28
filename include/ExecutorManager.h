@@ -9,8 +9,8 @@
 #define EXECUTOR_MANAGER_H_ 
 
 #include "maraton.h"
-#include "Executor.h"
 #include "Session.h"
+#include "Executor.h"
 
 class ExecutorManager :
     public Manager<Executor>,

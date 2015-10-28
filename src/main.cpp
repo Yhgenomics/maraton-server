@@ -6,6 +6,8 @@
 #include "HTTPSession.h"
 #include "MessagesHandler.hpp"
 #include "ExecutorManager.h"
+#include "Executor.h"
+#include "HTTPMessage.hpp"
 
 using namespace std;
 
@@ -21,7 +23,11 @@ int main()
         [] (ExecutorSession* session) {
 
             session->on_message([] (Message* msg) {
-                    Protocol::MessagesHandler::process( msg );
+                auto result = Protocol::MessagesHandler::process( msg );
+                if ( result < 0 )
+                {
+                    msg->owner()->close();
+                }
             } );
 
             session->on_close( [] (ClusterSession* session) { 
@@ -30,28 +36,14 @@ int main()
                 SAFE_DELETE( executor );
             } );
 
-            ExecutorManager::instance()->push( new Executor( session ) ); 
+            auto executor = new Executor( session );
+            ExecutorManager::instance()->push( executor );
 
             printf( "Session %d connected \r\n", session->id() );
         } 
     );
 
-    SessionManager<HTTPSession>::instance()->on_create(
-        [] ( HTTPSession* session ) {
-            session->handler()->router()->get( "/", 
-                [] (HTTPRequest* req, HTTPResponse* rep) { 
-                    rep->content_type( "application/json" );
-                    rep->content( "<body><h1>Hello World!!!</h1></body>" );
-                } );
-            session->handler()->router()->post( "/",
-                [] ( HTTPRequest* req, HTTPResponse* rep ) {
-                rep->content_type( "application/json" );
-                rep->content( "<body><h1>Hello POST!!!</h1></body>" );
-            } );
-        }
-    );
-
-    
+    SessionManager<HTTPSession>::instance()->on_create( HTTPMessage() );
 
     UVSockService srv;
     srv.listen( "0.0.0.0", 80 );

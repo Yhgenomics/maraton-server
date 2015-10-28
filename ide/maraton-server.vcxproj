@@ -24,8 +24,12 @@
     <ClCompile Include="..\src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\http\HTTPMessage.hpp" />
+    <ClInclude Include="..\http\HTTPMessageHandler.hpp" />
+    <ClInclude Include="..\http\HTTPMessageListExecutorHandler.hpp" />
     <ClInclude Include="..\include\Executor.h" />
     <ClInclude Include="..\include\ExecutorManager.h" />
+    <ClInclude Include="..\include\maraton-server.h" />
     <ClInclude Include="..\message\MessageAbilityQuery.hpp" />
     <ClInclude Include="..\message\MessageAbilityQueryACK.hpp" />
     <ClInclude Include="..\message\MessageAbilityQueryACKHandler.hpp" />
@@ -118,10 +122,10 @@
     <SourcePath>..\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\include;..\maraton-framework\include;..\message;$(IncludePath)</IncludePath>
-    <ReferencePath>..\include;..\maraton-framework\include;$(ReferencePath)</ReferencePath>
+    <IncludePath>..\include;..\maraton-framework\include;..\message;..\http;$(IncludePath)</IncludePath>
+    <ReferencePath>..\include;..\maraton-framework\include;..\http;$(ReferencePath)</ReferencePath>
     <LibraryPath>..\lib;..\maraton-framework\lib;$(LibraryPath)</LibraryPath>
-    <SourcePath>..\src;..\include;..\maraton-framework\src;..\maraton-framework\include;$(SourcePath)</SourcePath>
+    <SourcePath>..\src;..\include;..\maraton-framework\src;..\maraton-framework\include;..\http;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>..\include;..\maraton-framework\include;$(IncludePath)</IncludePath>

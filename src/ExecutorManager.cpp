@@ -1,5 +1,6 @@
 #include "ExecutorManager.h"
 #include "ExecutorSession.h"
+#include "Executor.h"
 
 Executor * ExecutorManager::find( Session * session )
 {

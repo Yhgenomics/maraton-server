@@ -26,7 +26,6 @@ void Executor::run()
 
     if ( this->check_timeout() ) return;
 
-
 }
 
 ExecutorSession * Executor::session()

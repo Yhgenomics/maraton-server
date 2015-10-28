@@ -2,6 +2,8 @@
 #define MESSAGE_INTRO_HANDLER_HPP_
 
 #include "MessageIntro.hpp"
+#include "ExecutorManager.h"
+#include "ClusterSession.h"
 
 namespace Protocol
 {
@@ -9,6 +11,10 @@ namespace Protocol
     {
         // UserDefineHandler Begin
         // Your Codes here!
+
+        auto exe = ExecutorManager::instance()->find( msg.owner()->id() );
+        if ( exe == nullptr ) return -1;
+
         return 0;
         // UserDefineHandler End 
     }

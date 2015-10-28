@@ -19,6 +19,9 @@
     <Filter Include="src">
       <UniqueIdentifier>{d0177160-f59f-4294-a89a-df104ca54213}</UniqueIdentifier>
     </Filter>
+    <Filter Include="http">
+      <UniqueIdentifier>{5431587c-a7df-429b-8a1a-6efcc8f8579c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\message\MessageAbilityQuery.hpp">
@@ -131,6 +134,18 @@
     </ClInclude>
     <ClInclude Include="..\include\Executor.h">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\maraton-server.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\http\HTTPMessageListExecutorHandler.hpp">
+      <Filter>http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\http\HTTPMessage.hpp">
+      <Filter>http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\http\HTTPMessageHandler.hpp">
+      <Filter>http</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
