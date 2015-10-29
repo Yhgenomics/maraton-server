@@ -138,13 +138,13 @@
     <ClInclude Include="..\include\maraton-server.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\http\HTTPMessageListExecutorHandler.hpp">
-      <Filter>http</Filter>
-    </ClInclude>
     <ClInclude Include="..\http\HTTPMessage.hpp">
       <Filter>http</Filter>
     </ClInclude>
     <ClInclude Include="..\http\HTTPMessageHandler.hpp">
+      <Filter>http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\http\HTTPMessageExecutorListHandler.hpp">
       <Filter>http</Filter>
     </ClInclude>
   </ItemGroup>

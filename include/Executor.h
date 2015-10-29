@@ -21,8 +21,11 @@ class Executor
 {
 public:
 
-    Executor( ExecutorSession* session);
+    Executor( ExecutorSession * session );
     ~Executor();
+
+    //operator
+    void operator()( ExecutorSession* session );
     
     //func
     void run();

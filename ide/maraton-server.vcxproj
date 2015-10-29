@@ -26,7 +26,7 @@
   <ItemGroup>
     <ClInclude Include="..\http\HTTPMessage.hpp" />
     <ClInclude Include="..\http\HTTPMessageHandler.hpp" />
-    <ClInclude Include="..\http\HTTPMessageListExecutorHandler.hpp" />
+    <ClInclude Include="..\http\HTTPMessageExecutorListHandler.hpp" />
     <ClInclude Include="..\include\Executor.h" />
     <ClInclude Include="..\include\ExecutorManager.h" />
     <ClInclude Include="..\include\maraton-server.h" />

@@ -14,7 +14,6 @@ using namespace std;
 void timer_callback( uv_timer_t* timer )
 {
     ExecutorManager::instance()->run();
-    //uv_timer_stop( timer );
 }
 
 int main()
@@ -23,17 +22,18 @@ int main()
         [] (ExecutorSession* session) {
 
             session->on_message([] (Message* msg) {
-                auto result = Protocol::MessagesHandler::process( msg );
-                if ( result < 0 )
+               
+                if ( Protocol::MessagesHandler::process( msg ) < 0 )
                 {
                     msg->owner()->close();
                 }
+
             } );
 
             session->on_close( [] (ClusterSession* session) { 
                 auto executor = ExecutorManager::instance()->find( session );
                 ExecutorManager::instance()->pop( executor );
-                SAFE_DELETE( executor );
+                printf( "Session %d closed \r\n", session->id() );
             } );
 
             auto executor = new Executor( session );

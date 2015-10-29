@@ -19,6 +19,11 @@ Executor::~Executor()
 
 }
 
+void Executor::operator()( ExecutorSession * session )
+{
+     
+}
+
 void Executor::run()
 {
 
@@ -39,6 +44,7 @@ bool Executor::check_timeout()
 
     if ( delta > 5000)
     {
+        this->last_update_time_ = Timer::tick();
         this->connected_ = false;
         this->session_->close();
         printf( "Kick %ld\r\n", this->session()->id() );

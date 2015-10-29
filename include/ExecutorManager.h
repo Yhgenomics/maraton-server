@@ -21,6 +21,8 @@ public:
     Executor* find( Session* session );
     Executor* find( int session_id );
     void run();
+    bool pop( Executor* instance ) override;
+    std::vector<Executor*> list();
 
 private:
 
