@@ -13,6 +13,7 @@
 #include "maraton.h"
 #include "maraton-server.h"
 #include "ExecutorSession.h"
+#include "TaskDescripter.hpp"
 
 using namespace std;
 
@@ -35,20 +36,25 @@ public:
     bool connected() { return this->connected_; };
     void refresh() { this->last_update_time_ = Timer::tick(); };
     
-    void memory_size( long value ) { memory_size_ = value; };
+    void memory_size( size_t value ) { memory_size_ = value; };
     size_t memory_size() { return memory_size_; };
 
-    void disk_size( long value ) { disk_size_ = value; };
+    void disk_size( size_t value ) { disk_size_ = value; };
     size_t disk_size() { return disk_size_; };
 
     void id( string value ) { id_ = value; };
     string id() { return id_; };
 
-    void ability( long value ) { ability_ = value; };
+    void ability( size_t value ) { ability_ = value; };
     size_t ability() { return ability_; };
 
-    void status( EXECUTORSTATUS value ) { status_ = value; };
-    EXECUTORSTATUS status() { return status_; };
+    void status( ExecutorStatus value ) { status_ = value; };
+    ExecutorStatus status() { return status_; };
+
+    void current_task( TaskDescripter* value ) { SAFE_DELETE( this->current_task_ ); this->current_task_ = value; };
+    TaskDescripter* current_task() { return this->current_task_; };
+
+    bool launch_task( std::string aligner , std::vector<std::string> args , std::vector<std::string> fastq );
 
 private:
 
@@ -63,7 +69,8 @@ private:
     size_t disk_size_ = 0;
     string id_ = "";
     size_t ability_ = 0;
-    EXECUTORSTATUS status_ = EXECUTORSTATUS::UNKNOWN;
+    ExecutorStatus status_ = ExecutorStatus::UNKNOWN;
+    TaskDescripter* current_task_ = nullptr;
 
     //func
     bool check_timeout();

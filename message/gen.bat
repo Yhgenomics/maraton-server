@@ -1,2 +1,2 @@
-CppClassGenerator.exe ..\messagetemplates\
+CppClassGenerator.exe ..\maraton-protocol\messagetemplates\
  

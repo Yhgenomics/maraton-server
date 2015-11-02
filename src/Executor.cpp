@@ -38,11 +38,23 @@ ExecutorSession * Executor::session()
     return this->session_;
 }
 
+bool Executor::launch_task( std::string aligner , std::vector<std::string> args , std::vector<std::string> fastq )
+{
+    if ( this->current_task_ != nullptr )
+    {
+        return false;
+    }
+
+
+
+    return true;
+}
+
 bool Executor::check_timeout()
 {
     int delta = Timer::tick() - this->last_update_time_;
 
-    if ( delta > 5000)
+    if ( delta >= 5000)
     {
         this->last_update_time_ = Timer::tick();
         this->connected_ = false;

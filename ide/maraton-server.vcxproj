@@ -22,6 +22,7 @@
     <ClCompile Include="..\src\Executor.cpp" />
     <ClCompile Include="..\src\ExecutorManager.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\TaskManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\http\HTTPDispatcher.hpp" />
@@ -32,6 +33,8 @@
     <ClInclude Include="..\include\Executor.h" />
     <ClInclude Include="..\include\ExecutorManager.h" />
     <ClInclude Include="..\include\maraton-server.h" />
+    <ClInclude Include="..\include\TaskDescripter.hpp" />
+    <ClInclude Include="..\include\TaskManager.h" />
     <ClInclude Include="..\message\HTTPMessageExecutorList.hpp" />
     <ClInclude Include="..\message\HTTPMessageExecutorListHandler.hpp" />
     <ClInclude Include="..\message\HTTPMessageTaskList.hpp" />

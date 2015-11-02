@@ -2,8 +2,6 @@
 #define MESSAGES_HANDLER_HPP_
 
 #include "stdlib.h"
-#include "HTTPMessageExecutorListHandler.hpp"
-#include "HTTPMessageTaskListHandler.hpp"
 #include "MessageAbilityQueryHandler.hpp"
 #include "MessageAbilityQueryACKHandler.hpp"
 #include "MessageExceptionReportHandler.hpp"
@@ -33,14 +31,6 @@ namespace Protocol
         {
             switch ( message->command() )
             {
-                case 100000:
-                    return HTTPMessageExecutorListHandler( HTTPMessageExecutorList( message ) );
-                    break;
-                
-                case 200000:
-                    return HTTPMessageTaskListHandler( HTTPMessageTaskList( message ) );
-                    break;
-                
                 case 101:
                     return MessageAbilityQueryHandler( MessageAbilityQuery( message ) );
                     break;

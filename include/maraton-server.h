@@ -1,14 +1,15 @@
 #include "maraton.h"
 
 
-#define PROPERTY_DEF(__type__,__name__,__valiable__) void __name__( __type__ value ) { __valiable__ = value; }; __type__ __name__() { return __valiable__; };
+#define PP_DEF(__type__,__name__) void __name__( __type__ value ) { __name__##_ = value; }; \
+              __type__ __name__() { return __name__##_; }
 
-enum EXECUTORSTATUS
+enum ExecutorStatus
 {
-    BUSY = 1,
+    UNKNOWN = 0,
+	BOOT,
+    BUSY,
     IDLE,
     PREPARE,
     WORK,
-
-    UNKNOWN = 0xFFFF
 };

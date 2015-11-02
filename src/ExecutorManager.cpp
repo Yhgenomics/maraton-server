@@ -19,6 +19,19 @@ Executor * ExecutorManager::find( int session_id )
     return nullptr;
 }
 
+Executor * ExecutorManager::find( std::string executor_id )
+{
+    for ( auto result : this->instances() )
+    {
+        if ( result->id() == executor_id )
+        {
+            return result;
+        }
+    }
+
+    return nullptr;
+}
+
 void ExecutorManager::run()
 {
     for ( auto result : this->instances() )

@@ -9,22 +9,23 @@
 #include "Executor.h"
 #include "HTTPDispatcher.hpp"
 #include "RESTSession.h"
+#include "TaskManager.h"
 
 using namespace std;
 
 void timer_callback( uv_timer_t* timer )
 {
     ExecutorManager::instance()->run();
+    TaskManager::instance()->run();
 }
 
 int main()
-{
+{ 
     SessionManager<ExecutorSession>::instance()->on_create( 
         [] (ExecutorSession* session) {
 
             //=======================================
             session->on_message([] (Message* msg) {
-               
                 if ( Protocol::MessagesHandler::process( msg ) < 0 )
                 {
                     msg->owner()->close();
@@ -48,8 +49,10 @@ int main()
 
     SessionManager<RESTSession>::instance()->on_create(
         [] ( RESTSession* session ) {
+
             printf( "Rest Session %d connected \r\n", session->id() );
-            session->on_message( [] ( Message* msg ) {
+        
+			session->on_message( [] ( Message* msg ) {
                 Protocol::MessagesHandler::process( msg );
                 msg->owner()->close();
             } );
@@ -61,14 +64,24 @@ int main()
     });
 
     UVSockService srv;
-    srv.listen( "0.0.0.0", 80 );
+    srv.listen( "0.0.0.0", 8080 );
     srv.listen( "0.0.0.0", 90 );
 
     uv_timer_t timer;
     uv_timer_init( uv_default_loop(), &timer );
     uv_timer_start( &timer, timer_callback , 0, 1 );
 
-    srv.run();
+	while (true)
+	{
+		try
+		{
+			srv.run();
+		}
+		catch (exception ee)
+		{
+
+		}
+	}
 
     return 0;
 }

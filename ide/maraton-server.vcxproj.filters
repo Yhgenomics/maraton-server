@@ -8,6 +8,9 @@
     <ClCompile Include="..\src\Executor.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\TaskManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -167,6 +170,12 @@
     </ClInclude>
     <ClInclude Include="..\message\HTTPMessageTaskListHandler.hpp">
       <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TaskManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TaskDescripter.hpp">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
