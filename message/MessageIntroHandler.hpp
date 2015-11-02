@@ -2,8 +2,6 @@
 #define MESSAGE_INTRO_HANDLER_HPP_
 
 #include "MessageIntro.hpp"
-#include "ExecutorManager.h"
-#include "ClusterSession.h"
 
 namespace Protocol
 {

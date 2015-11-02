@@ -7,7 +7,8 @@
 #include "MessagesHandler.hpp"
 #include "ExecutorManager.h"
 #include "Executor.h"
-#include "HTTPMessage.hpp"
+#include "HTTPDispatcher.hpp"
+#include "RESTSession.h"
 
 using namespace std;
 
@@ -21,6 +22,7 @@ int main()
     SessionManager<ExecutorSession>::instance()->on_create( 
         [] (ExecutorSession* session) {
 
+            //=======================================
             session->on_message([] (Message* msg) {
                
                 if ( Protocol::MessagesHandler::process( msg ) < 0 )
@@ -30,6 +32,7 @@ int main()
 
             } );
 
+            //=======================================
             session->on_close( [] (ClusterSession* session) { 
                 auto executor = ExecutorManager::instance()->find( session );
                 ExecutorManager::instance()->pop( executor );
@@ -43,7 +46,19 @@ int main()
         } 
     );
 
-    SessionManager<HTTPSession>::instance()->on_create( HTTPMessage() );
+    SessionManager<RESTSession>::instance()->on_create(
+        [] ( RESTSession* session ) {
+            printf( "Rest Session %d connected \r\n", session->id() );
+            session->on_message( [] ( Message* msg ) {
+                Protocol::MessagesHandler::process( msg );
+                msg->owner()->close();
+            } );
+
+            session->on_close( [] ( ClusterSession* session ) {
+             
+                printf( "Rest Session %d closed \r\n", session->id() );
+            } ); 
+    });
 
     UVSockService srv;
     srv.listen( "0.0.0.0", 80 );

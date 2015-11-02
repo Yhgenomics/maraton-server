@@ -24,12 +24,18 @@
     <ClCompile Include="..\src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\http\HTTPMessage.hpp" />
+    <ClInclude Include="..\http\HTTPDispatcher.hpp" />
     <ClInclude Include="..\http\HTTPMessageHandler.hpp" />
     <ClInclude Include="..\http\HTTPMessageExecutorListHandler.hpp" />
+    <ClInclude Include="..\http\HTTPMessageRootHandler.hpp" />
+    <ClInclude Include="..\http\HTTPMessageTaskListHandler.hpp" />
     <ClInclude Include="..\include\Executor.h" />
     <ClInclude Include="..\include\ExecutorManager.h" />
     <ClInclude Include="..\include\maraton-server.h" />
+    <ClInclude Include="..\message\HTTPMessageExecutorList.hpp" />
+    <ClInclude Include="..\message\HTTPMessageExecutorListHandler.hpp" />
+    <ClInclude Include="..\message\HTTPMessageTaskList.hpp" />
+    <ClInclude Include="..\message\HTTPMessageTaskListHandler.hpp" />
     <ClInclude Include="..\message\MessageAbilityQuery.hpp" />
     <ClInclude Include="..\message\MessageAbilityQueryACK.hpp" />
     <ClInclude Include="..\message\MessageAbilityQueryACKHandler.hpp" />

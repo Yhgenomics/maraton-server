@@ -35,8 +35,8 @@ protected:
             json["task_percent"] = 0;
             result.push_back( json );
         }
-
-        rep->content( result.dump() );
+        
+        result_ok( result );
     };
 };
 
