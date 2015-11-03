@@ -1,7 +1,12 @@
+#include "maraton-server.h"
 #include "Executor.h"
 #include "ExecutorSession.h"
 
 #include "MessagesHandler.hpp"
+#include "MessageTaskDeliver.hpp"
+#include "MessageTaskCancel.hpp"
+
+using namespace Protocol;
 
 Executor::Executor( ExecutorSession * session )
 {
@@ -33,19 +38,36 @@ void Executor::run()
 
 }
 
+void Executor::stop_task()
+{
+    
+    if ( this->current_task_ == nullptr )
+        return;
+
+    MessageTaskCancel msg;
+    msg.task_id( this->current_task_->id() );
+    this->session()->send( &msg );
+}
+
 ExecutorSession * Executor::session()
 {
     return this->session_;
 }
 
-bool Executor::launch_task( std::string aligner , std::vector<std::string> args , std::vector<std::string> fastq )
+bool Executor::launch_task( TaskDescripter* task )
 {
     if ( this->current_task_ != nullptr )
     {
         return false;
     }
 
+    this->current_task( task );
 
+    if ( task->aligner().empty() )
+        return false;
+
+    if ( task->fastq().empty() )
+        return false;
 
     return true;
 }
@@ -54,7 +76,7 @@ bool Executor::check_timeout()
 {
     int delta = Timer::tick() - this->last_update_time_;
 
-    if ( delta >= 5000)
+    if ( delta >= EXECUTOR_TIMEOUT )
     {
         this->last_update_time_ = Timer::tick();
         this->connected_ = false;

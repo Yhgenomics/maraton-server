@@ -30,6 +30,60 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\ExecutorManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Executor.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\maraton-server.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\http\HTTPMessageHandler.hpp">
+      <Filter>http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\http\HTTPMessageExecutorListHandler.hpp">
+      <Filter>http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\http\HTTPMessageTaskListHandler.hpp">
+      <Filter>http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\http\HTTPDispatcher.hpp">
+      <Filter>http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\http\HTTPMessageRootHandler.hpp">
+      <Filter>http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TaskManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TaskDescripter.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MaratonMath.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ExecutorTaskDescripter.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\HTTPMessageCommand.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\HTTPMessageCommandHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\HTTPMessageResult.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\HTTPMessageResultHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\HTTPMessageTaskStart.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\HTTPMessageTaskStartHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
     <ClInclude Include="..\message\MessageAbilityQuery.hpp">
       <Filter>message</Filter>
     </ClInclude>
@@ -40,6 +94,12 @@
       <Filter>message</Filter>
     </ClInclude>
     <ClInclude Include="..\message\MessageAbilityQueryHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageCommand.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageCommandHandler.hpp">
       <Filter>message</Filter>
     </ClInclude>
     <ClInclude Include="..\message\MessageExceptionReport.hpp">
@@ -134,48 +194,6 @@
     </ClInclude>
     <ClInclude Include="..\message\MessageTaskRestartHandler.hpp">
       <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\ExecutorManager.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Executor.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\maraton-server.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\http\HTTPMessageHandler.hpp">
-      <Filter>http</Filter>
-    </ClInclude>
-    <ClInclude Include="..\http\HTTPMessageExecutorListHandler.hpp">
-      <Filter>http</Filter>
-    </ClInclude>
-    <ClInclude Include="..\http\HTTPMessageTaskListHandler.hpp">
-      <Filter>http</Filter>
-    </ClInclude>
-    <ClInclude Include="..\http\HTTPDispatcher.hpp">
-      <Filter>http</Filter>
-    </ClInclude>
-    <ClInclude Include="..\http\HTTPMessageRootHandler.hpp">
-      <Filter>http</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\HTTPMessageExecutorList.hpp">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\HTTPMessageExecutorListHandler.hpp">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\HTTPMessageTaskList.hpp">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\HTTPMessageTaskListHandler.hpp">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\TaskManager.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\TaskDescripter.hpp">
-      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

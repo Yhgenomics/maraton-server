@@ -13,19 +13,19 @@
 
 #include "maraton.h"
 #include "maraton-server.h"
-
-enum TaskDescripterStatus
-{
-    kNew     = 0,
-    kQueue   = 1<<1,
-    kRun     = 1<<2,
-    kPrepare = 1<<3,
-    kFinish  = 1<<4
-};
-
+ 
 class TaskDescripter
 {
 public:
+
+    enum TaskDescripterStatus
+    {
+        kNew = 0 ,
+        kQueue = 1 << 1 ,
+        kRun = 1 << 2 ,
+        kPrepare = 1 << 3 ,
+        kFinish = 1 << 4
+    };
 
     TaskDescripter()
     {
@@ -43,7 +43,6 @@ public:
     }
 
     TaskDescripter& operator=( const TaskDescripter& task )
-        
     {
         this->id_       = task.id_;
         this->name_     = task.name_;

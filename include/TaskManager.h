@@ -18,11 +18,12 @@ class TaskManager :
 {
 public:
 
-    void launch( TaskDescripter* task );
+    bool launch( TaskDescripter* task );
+
+    std::string error() { return error_; };
 
     void run();
 
-    void stop( const TaskDescripter* task );
     void stop( std::string task_id );
 
 private:
@@ -30,7 +31,8 @@ private:
     friend Singleton<TaskManager>; 
     std::vector<TaskDescripter*> taskdescripters_;
 
-    void launch_single( TaskDescripter* task );
+    std::string error_ = "";
+    bool launch_single( TaskDescripter* task );
 
 };
 

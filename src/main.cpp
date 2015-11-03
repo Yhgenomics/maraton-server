@@ -10,6 +10,7 @@
 #include "HTTPDispatcher.hpp"
 #include "RESTSession.h"
 #include "TaskManager.h"
+#include "HTTPMessageResult.hpp"
 
 using namespace std;
 
@@ -26,6 +27,7 @@ int main()
 
             //=======================================
             session->on_message([] (Message* msg) {
+               
                 if ( Protocol::MessagesHandler::process( msg ) < 0 )
                 {
                     msg->owner()->close();
@@ -37,35 +39,42 @@ int main()
             session->on_close( [] (ClusterSession* session) { 
                 auto executor = ExecutorManager::instance()->find( session );
                 ExecutorManager::instance()->pop( executor );
-                printf( "Session %d closed \r\n", session->id() );
+                printf( "TCPSession %d closed \r\n", session->id() );
             } );
 
             auto executor = new Executor( session );
             ExecutorManager::instance()->push( executor );
 
-            printf( "Session %d connected \r\n", session->id() );
+            printf( "TCPSession %d connected \r\n", session->id() );
         } 
     );
 
     SessionManager<RESTSession>::instance()->on_create(
         [] ( RESTSession* session ) {
 
-            printf( "Rest Session %d connected \r\n", session->id() );
+            printf( "RESTSession %d connected \r\n", session->id() );
         
 			session->on_message( [] ( Message* msg ) {
-                Protocol::MessagesHandler::process( msg );
+                
+                if ( Protocol::MessagesHandler::process( msg ) < 0 )
+                {
+                    Protocol::HTTPMessageResult result;
+                    result.result( 1 );
+                    result.message( "failed" );
+                    msg->owner()->send( &result );
+                }
                 msg->owner()->close();
             } );
 
             session->on_close( [] ( ClusterSession* session ) {
              
-                printf( "Rest Session %d closed \r\n", session->id() );
+                printf( "RESTSession %d closed \r\n", session->id() );
             } ); 
     });
 
     UVSockService srv;
-    srv.listen( "0.0.0.0", 8080 );
-    srv.listen( "0.0.0.0", 90 );
+    srv.listen( "0.0.0.0", SESSIONTYPE::RESTAPI );
+    srv.listen( "0.0.0.0", SESSIONTYPE::EXECUTOR );
 
     uv_timer_t timer;
     uv_timer_init( uv_default_loop(), &timer );

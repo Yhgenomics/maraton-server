@@ -25,56 +25,30 @@ namespace Protocol
             raw_data_[ "data" ][ "task_id" ] = value;
         }
         
-        // Getter of cpu_
-        string cpu()
+        // Getter of uri_list_
+        vector<std::string> uri_list()
         {
-            return cpu_;
+            return uri_list_;
         }
         
-        // Setter of cpu_
-        void cpu( string value )
+        // Setter of uri_list_
+        void uri_list( vector<std::string> value )
         {
-            cpu_ = value;
-            raw_data_[ "data" ][ "cpu" ] = value;
+            uri_list_ = value;
+            raw_data_[ "data" ][ "uri_list" ] = value;
         }
         
-        // Getter of ram_
-        string ram()
+        // Getter of aligner_
+        string aligner()
         {
-            return ram_;
+            return aligner_;
         }
         
-        // Setter of ram_
-        void ram( string value )
+        // Setter of aligner_
+        void aligner( string value )
         {
-            ram_ = value;
-            raw_data_[ "data" ][ "ram" ] = value;
-        }
-        
-        // Getter of command_lines_
-        string command_lines()
-        {
-            return command_lines_;
-        }
-        
-        // Setter of command_lines_
-        void command_lines( string value )
-        {
-            command_lines_ = value;
-            raw_data_[ "data" ][ "command_lines" ] = value;
-        }
-        
-        // Getter of uri_
-        string uri()
-        {
-            return uri_;
-        }
-        
-        // Setter of uri_
-        void uri( string value )
-        {
-            uri_ = value;
-            raw_data_[ "data" ][ "uri" ] = value;
+            aligner_ = value;
+            raw_data_[ "data" ][ "aligner" ] = value;
         }
         
         // Serilize Constructor
@@ -82,10 +56,8 @@ namespace Protocol
             : Message( PROTOCOL_VERSION , 131 , 0 )
         {
             task_id( "" );
-            cpu( "" );
-            ram( "" );
-            command_lines( "" );
-            uri( "" );
+            uri_list(  );
+            aligner( "" );
         }
         
         // Deserilize Constructor
@@ -93,19 +65,15 @@ namespace Protocol
             : Message( *message )
         {
             this->task_id_ = raw_data_[ "data" ][ "task_id" ].get<string>();
-            this->cpu_ = raw_data_[ "data" ][ "cpu" ].get<string>();
-            this->ram_ = raw_data_[ "data" ][ "ram" ].get<string>();
-            this->command_lines_ = raw_data_[ "data" ][ "command_lines" ].get<string>();
-            this->uri_ = raw_data_[ "data" ][ "uri" ].get<string>();
+            this->uri_list_ = raw_data_[ "data" ][ "uri_list" ].get<vector<std::string>>();
+            this->aligner_ = raw_data_[ "data" ][ "aligner" ].get<string>();
         }
     
     private:
     
         string task_id_;
-        string cpu_;
-        string ram_;
-        string command_lines_;
-        string uri_;
+        vector<std::string> uri_list_;
+        string aligner_;
     
     }; // End of class define of MessageTaskDeliver
 

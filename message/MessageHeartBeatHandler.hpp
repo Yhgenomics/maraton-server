@@ -3,7 +3,6 @@
 
 #include "MessageHeartBeat.hpp"
 #include "ExecutorManager.h"
-#include "Executor.h"
 
 namespace Protocol
 {
@@ -11,8 +10,10 @@ namespace Protocol
     {
         // UserDefineHandler Begin
         // Your Codes here!
+
         auto exe = ExecutorManager::instance()->find( msg.owner()->id() );
-        if ( exe == nullptr ) return -1;
+        if ( exe == nullptr )
+            return -1;
 
         exe->refresh();
 

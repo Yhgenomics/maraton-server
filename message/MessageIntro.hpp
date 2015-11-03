@@ -12,6 +12,19 @@ namespace Protocol
     {
     public:
     
+        // Getter of uuid_
+        string uuid()
+        {
+            return uuid_;
+        }
+        
+        // Setter of uuid_
+        void uuid( string value )
+        {
+            uuid_ = value;
+            raw_data_[ "data" ][ "uuid" ] = value;
+        }
+        
         // Getter of free_memory_
         size_t free_memory()
         {
@@ -55,6 +68,7 @@ namespace Protocol
         MessageIntro()
             : Message( PROTOCOL_VERSION , 92 , 0 )
         {
+            uuid( "" );
             free_memory( 0 );
             free_disk( 0 );
             process_100m( 0 );
@@ -64,6 +78,7 @@ namespace Protocol
         MessageIntro( Message* message )
             : Message( *message )
         {
+            this->uuid_ = raw_data_[ "data" ][ "uuid" ].get<string>();
             this->free_memory_ = raw_data_[ "data" ][ "free_memory" ].get<size_t>();
             this->free_disk_ = raw_data_[ "data" ][ "free_disk" ].get<size_t>();
             this->process_100m_ = raw_data_[ "data" ][ "process_100m" ].get<size_t>();
@@ -71,6 +86,7 @@ namespace Protocol
     
     private:
     
+        string uuid_;
         size_t free_memory_;
         size_t free_disk_;
         size_t process_100m_;

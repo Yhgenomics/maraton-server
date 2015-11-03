@@ -17,10 +17,19 @@
 
 using namespace std;
 
-
 class Executor
 {
 public:
+
+    enum ExecutorStatus
+    {
+        kUnknow= 0 ,
+        kBoot ,
+        kDl_standard_genome,
+        kIdle ,
+        kPrepare ,
+        kWork ,
+    };
 
     Executor( ExecutorSession * session );
     ~Executor();
@@ -30,6 +39,9 @@ public:
     
     //func
     void run();
+    void stop_task();
+    void command( std::string command , std::string uris, std::string run_as_user );
+    bool launch_task( TaskDescripter* value );
 
     //getter & setter
     ExecutorSession* session();
@@ -51,10 +63,8 @@ public:
     void status( ExecutorStatus value ) { status_ = value; };
     ExecutorStatus status() { return status_; };
 
-    void current_task( TaskDescripter* value ) { SAFE_DELETE( this->current_task_ ); this->current_task_ = value; };
+    void current_task( TaskDescripter* value ) { SAFE_DELETE( this->current_task_ ); this->current_task_ = std::move( value ); };
     TaskDescripter* current_task() { return this->current_task_; };
-
-    bool launch_task( std::string aligner , std::vector<std::string> args , std::vector<std::string> fastq );
 
 private:
 
@@ -69,7 +79,7 @@ private:
     size_t disk_size_ = 0;
     string id_ = "";
     size_t ability_ = 0;
-    ExecutorStatus status_ = ExecutorStatus::UNKNOWN;
+    ExecutorStatus status_ = ExecutorStatus::kUnknow;
     TaskDescripter* current_task_ = nullptr;
 
     //func

@@ -2,8 +2,12 @@
 #define MESSAGES_HANDLER_HPP_
 
 #include "stdlib.h"
+#include "HTTPMessageCommandHandler.hpp"
+#include "HTTPMessageResultHandler.hpp"
+#include "HTTPMessageTaskStartHandler.hpp"
 #include "MessageAbilityQueryHandler.hpp"
 #include "MessageAbilityQueryACKHandler.hpp"
+#include "MessageCommandHandler.hpp"
 #include "MessageExceptionReportHandler.hpp"
 #include "MessageGreetingHandler.hpp"
 #include "MessageHeartBeatHandler.hpp"
@@ -31,12 +35,28 @@ namespace Protocol
         {
             switch ( message->command() )
             {
+                case 10100:
+                    return HTTPMessageCommandHandler( HTTPMessageCommand( message ) );
+                    break;
+                
+                case 19999:
+                    return HTTPMessageResultHandler( HTTPMessageResult( message ) );
+                    break;
+                
+                case 10000:
+                    return HTTPMessageTaskStartHandler( HTTPMessageTaskStart( message ) );
+                    break;
+                
                 case 101:
                     return MessageAbilityQueryHandler( MessageAbilityQuery( message ) );
                     break;
                 
                 case 102:
                     return MessageAbilityQueryACKHandler( MessageAbilityQueryACK( message ) );
+                    break;
+                
+                case 166:
+                    return MessageCommandHandler( MessageCommand( message ) );
                     break;
                 
                 case 151:
