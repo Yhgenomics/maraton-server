@@ -39,6 +39,8 @@
     <ClInclude Include="..\include\TaskManager.h" />
     <ClInclude Include="..\message\HTTPMessageCommand.hpp" />
     <ClInclude Include="..\message\HTTPMessageCommandHandler.hpp" />
+    <ClInclude Include="..\message\HTTPMessageListExecutor.hpp" />
+    <ClInclude Include="..\message\HTTPMessageListExecutorHandler.hpp" />
     <ClInclude Include="..\message\HTTPMessageResult.hpp" />
     <ClInclude Include="..\message\HTTPMessageResultHandler.hpp" />
     <ClInclude Include="..\message\HTTPMessageTaskStart.hpp" />

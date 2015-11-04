@@ -39,20 +39,20 @@ int main()
             session->on_close( [] (ClusterSession* session) { 
                 auto executor = ExecutorManager::instance()->find( session );
                 ExecutorManager::instance()->pop( executor );
-                printf( "TCPSession %d closed \r\n", session->id() );
+                Logger::sys( "TCPSession %d closed", session->id() );
             } );
 
             auto executor = new Executor( session );
             ExecutorManager::instance()->push( executor );
 
-            printf( "TCPSession %d connected \r\n", session->id() );
+            Logger::sys( "TCPSession %d connected", session->id() );
         } 
     );
 
     SessionManager<RESTSession>::instance()->on_create(
         [] ( RESTSession* session ) {
 
-            printf( "RESTSession %d connected \r\n", session->id() );
+            Logger::sys( "RESTSession %d connected", session->id() );
         
 			session->on_message( [] ( Message* msg ) {
                 
@@ -63,12 +63,12 @@ int main()
                     result.message( "failed" );
                     msg->owner()->send( &result );
                 }
-                msg->owner()->close();
+                //msg->owner()->close();
             } );
 
             session->on_close( [] ( ClusterSession* session ) {
              
-                printf( "RESTSession %d closed \r\n", session->id() );
+                Logger::sys( "RESTSession %d closed", session->id() );
             } ); 
     });
 

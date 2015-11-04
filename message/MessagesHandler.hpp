@@ -3,6 +3,7 @@
 
 #include "stdlib.h"
 #include "HTTPMessageCommandHandler.hpp"
+#include "HTTPMessageListExecutorHandler.hpp"
 #include "HTTPMessageResultHandler.hpp"
 #include "HTTPMessageTaskStartHandler.hpp"
 #include "MessageAbilityQueryHandler.hpp"
@@ -37,6 +38,10 @@ namespace Protocol
             {
                 case 10100:
                     return HTTPMessageCommandHandler( HTTPMessageCommand( message ) );
+                    break;
+                
+                case 10200:
+                    return HTTPMessageListExecutorHandler( HTTPMessageListExecutor( message ) );
                     break;
                 
                 case 19999:

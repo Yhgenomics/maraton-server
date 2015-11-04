@@ -195,5 +195,11 @@
     <ClInclude Include="..\message\MessageTaskRestartHandler.hpp">
       <Filter>message</Filter>
     </ClInclude>
+    <ClInclude Include="..\message\HTTPMessageListExecutor.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\HTTPMessageListExecutorHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

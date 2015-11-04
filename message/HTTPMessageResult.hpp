@@ -38,12 +38,26 @@ namespace Protocol
             raw_data_[ "data" ][ "message" ] = value;
         }
         
+        // Getter of object_
+        string object()
+        {
+            return object_;
+        }
+        
+        // Setter of object_
+        void object( string value )
+        {
+            object_ = value;
+            raw_data_[ "data" ][ "object" ] = value;
+        }
+        
         // Serilize Constructor
         HTTPMessageResult()
             : Message( PROTOCOL_VERSION , 19999 , 0 )
         {
             result(  );
             message( "" );
+            object( "" );
         }
         
         // Deserilize Constructor
@@ -52,12 +66,14 @@ namespace Protocol
         {
             this->result_ = raw_data_[ "data" ][ "result" ].get<int>();
             this->message_ = raw_data_[ "data" ][ "message" ].get<string>();
+            this->object_ = raw_data_[ "data" ][ "object" ].get<string>();
         }
     
     private:
     
         int result_;
         string message_;
+        string object_;
     
     }; // End of class define of HTTPMessageResult
 

@@ -81,7 +81,7 @@ bool Executor::check_timeout()
         this->last_update_time_ = Timer::tick();
         this->connected_ = false;
         this->session_->close();
-        printf( "Kick %ld\r\n", this->session()->id() );
+        Logger::sys( "Kick %ld\r\n", this->session()->id() );
         return true;
     }
 
