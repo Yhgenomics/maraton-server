@@ -21,7 +21,7 @@ Executor::Executor( ExecutorSession * session )
 
 Executor::~Executor()
 {
-
+    SAFE_DELETE( this->current_task_ );
 }
 
 void Executor::operator()( ExecutorSession * session )
@@ -68,6 +68,14 @@ bool Executor::launch_task( TaskDescripter* task )
 
     if ( task->fastq().empty() )
         return false;
+
+    MessageTaskDeliver msg;
+
+    msg.aligner( task->aligner() );
+    msg.task_id( task->id() );
+    msg.uri_list( task->fastq() );
+
+    this->session()->send( &msg );
 
     return true;
 }

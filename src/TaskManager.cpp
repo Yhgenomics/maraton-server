@@ -71,7 +71,7 @@ bool TaskManager::launch_single( TaskDescripter* task )
             break;
         }
 
-        int fastq_size = static_cast< int > ( maraton_round( ( 1 - ( double )executor->ability() / ( double )sum_score )  * fastq_count ) );
+        int fastq_size = static_cast< int > ( maraton_round( ( ( double )executor->ability() / ( double )sum_score )  * fastq_count ) );
 
         for ( size_t i = 0; i < fastq_size; i++ )
         {
@@ -90,7 +90,6 @@ bool TaskManager::launch_single( TaskDescripter* task )
         if ( !executor->launch_task( executor_task ) )
         {
             this->error_ += "[" + executor->id() +"] launch task errors\r\n" ;
-
             SAFE_DELETE( executor_task );
             break;
         }

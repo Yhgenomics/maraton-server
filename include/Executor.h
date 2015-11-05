@@ -40,7 +40,7 @@ public:
     //func
     void run();
     void stop_task();
-    void command( std::string command , std::string uris, std::string run_as_user );
+    //void command( std::string command , std::string uris, std::string run_as_user );
     bool launch_task( TaskDescripter* value );
 
     //getter & setter
