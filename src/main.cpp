@@ -31,6 +31,10 @@ void timer_callback( uv_timer_t* timer )
   
 int main(int argc,char** argv)
 {   
+
+
+    FILE* file = popen();
+
     SessionManager<ExecutorSession>::instance()->on_create( 
         [] (ExecutorSession* session) {
 
