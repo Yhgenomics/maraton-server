@@ -4,11 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "maraton-server", "maraton-server.vcxproj", "{C41805F9-772D-47FD-A02F-218FA3B16849}"
-	ProjectSection(ProjectDependencies) = postProject
-		{9EC33A65-4F99-454B-B5F4-CA2698E37021} = {9EC33A65-4F99-454B-B5F4-CA2698E37021}
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "maraton-framework", "..\maraton-framework\ide\maraton-framework.vcxproj", "{9EC33A65-4F99-454B-B5F4-CA2698E37021}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,14 +21,6 @@ Global
 		{C41805F9-772D-47FD-A02F-218FA3B16849}.Release|x64.Build.0 = Release|x64
 		{C41805F9-772D-47FD-A02F-218FA3B16849}.Release|x86.ActiveCfg = Release|Win32
 		{C41805F9-772D-47FD-A02F-218FA3B16849}.Release|x86.Build.0 = Release|Win32
-		{9EC33A65-4F99-454B-B5F4-CA2698E37021}.Debug|x64.ActiveCfg = Debug|x64
-		{9EC33A65-4F99-454B-B5F4-CA2698E37021}.Debug|x64.Build.0 = Debug|x64
-		{9EC33A65-4F99-454B-B5F4-CA2698E37021}.Debug|x86.ActiveCfg = Debug|Win32
-		{9EC33A65-4F99-454B-B5F4-CA2698E37021}.Debug|x86.Build.0 = Debug|Win32
-		{9EC33A65-4F99-454B-B5F4-CA2698E37021}.Release|x64.ActiveCfg = Release|x64
-		{9EC33A65-4F99-454B-B5F4-CA2698E37021}.Release|x64.Build.0 = Release|x64
-		{9EC33A65-4F99-454B-B5F4-CA2698E37021}.Release|x86.ActiveCfg = Release|Win32
-		{9EC33A65-4F99-454B-B5F4-CA2698E37021}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
