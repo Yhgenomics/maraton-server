@@ -24,11 +24,11 @@ public:
     enum ExecutorStatus
     {
         kUnknow= 0 ,
-        kBoot ,
-        kDl_standard_genome,
+        kBooting ,
+        kDownloading,
         kIdle ,
-        kPrepare ,
-        kWork ,
+        kComputing ,
+        kUploading ,
     };
 
     Executor( ExecutorSession * session );

@@ -12,6 +12,19 @@ bool TaskManager::launch( TaskDescripter* task )
     //taskdescripters_.push_back( task );
 }
 
+TaskDescripter* TaskManager::find( std::string task_id )
+{
+    for ( auto t : this->taskdescripters_ )
+    {
+        if ( t->id() == task_id )
+        {
+            return t;
+        }
+    }
+
+    return nullptr;
+}
+
 void TaskManager::run()
 {
     
@@ -30,6 +43,10 @@ void TaskManager::stop( std::string task_id )
         }
     }
 }
+
+void TaskManager::status( std::string task_id , TaskDescripter::TaskDescripterStatus status )
+{
+} 
 
 bool TaskManager::launch_single( TaskDescripter* task )
 {

@@ -22,9 +22,13 @@ public:
 
     std::string error() { return error_; };
 
+    TaskDescripter* find( std::string task_id );
+
     void run();
 
     void stop( std::string task_id );
+
+    void status( std::string task_id , TaskDescripter::TaskDescripterStatus status );
 
 private:
 

@@ -20,16 +20,16 @@ public:
 
     enum TaskDescripterStatus
     {
-        kNew = 0 ,
-        kQueue = 1 << 1 ,
-        kRun = 1 << 2 ,
-        kPrepare = 1 << 3 ,
-        kFinish = 1 << 4
+        kUnknow = 0 ,
+        kDownloading,
+        kQueue,
+        kRun,
+        kFinish
     };
 
     TaskDescripter()
     {
-        this->status( TaskDescripterStatus::kNew );
+        this->status( TaskDescripterStatus::kUnknow );
     }
 
     TaskDescripter( const TaskDescripter& ins )
@@ -70,7 +70,7 @@ private:
     std::vector<std::string> fastq_;
     std::vector<std::string> executor_;
     std::vector<std::string> args_;
-    TaskDescripterStatus status_ = TaskDescripterStatus::kNew;
+    TaskDescripterStatus status_ = TaskDescripterStatus::kUnknow;
     int progress_ = 0;
 };
 

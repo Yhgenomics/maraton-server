@@ -28,9 +28,13 @@ void timer_callback( uv_timer_t* timer )
     ExecutorManager::instance()->run();
     TaskManager::instance()->run();
 }
-  
+
+ 
 int main(int argc,char** argv)
-{   
+{    
+    ExecutorSession* s;
+    std::unique_ptr<Session> sessionPtr(s);
+
     SessionManager<ExecutorSession>::instance()->on_create( 
         [] (ExecutorSession* session) {
 
@@ -61,8 +65,6 @@ int main(int argc,char** argv)
     SessionManager<RESTSession>::instance()->on_create(
         [] ( RESTSession* session ) {
 
-            Logger::sys( "RESTSession %d connected", session->id() );
-        
 			session->on_message( [] ( Message* msg ) {
                 
                 if ( Protocol::MessagesHandler::process( msg ) < 0 )
@@ -72,12 +74,11 @@ int main(int argc,char** argv)
                     result.message( "failed" );
                     msg->owner()->send( &result );
                 }
-                //msg->owner()->close();
+                
+                msg->owner()->close();
             } );
 
             session->on_close( [] ( ClusterSession* session ) {
-             
-                Logger::sys( "RESTSession %d closed", session->id() );
             } ); 
     });
 

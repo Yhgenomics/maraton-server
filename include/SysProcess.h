@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <functional>
 #include <string>
+#include "uv.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -21,7 +22,10 @@ public:
     SysProcess( std::string  file, std::function<void( size_t )> on_finish );
     ~SysProcess();
 
-    void wait_for_exit();
+    static void uv_work_process_callback( uv_work_t* req );
+    static void uv_after_work_process_callback( uv_work_t* req , int status );
+
+    size_t wait_for_exit();
     void kill();
     
 private:
@@ -30,6 +34,8 @@ private:
     STARTUPINFO si_;
     PROCESS_INFORMATION pi_;
 #else
+
+    FILE* p_stream = NULL;
 
 #endif
 
@@ -43,7 +49,13 @@ private:
     char* args_ = NULL;;
     char* directory_ = NULL;
 
+    char output_buffer_[10240] = { 0 };
+
     int result = 0;
+
+    uv_work_t worker;
+
+    uv_sem_t sem;
 };
 
 #endif // !PROCESS_H_
