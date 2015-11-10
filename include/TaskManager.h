@@ -12,32 +12,28 @@
 
 #include "maraton.h"
 #include "TaskDescripter.hpp"
+#include "Task.h"
 
 class TaskManager :
     public Singleton<TaskManager> 
 {
 public:
 
-    bool launch( TaskDescripter* task );
-
-    std::string error() { return error_; };
-
-    TaskDescripter* find( std::string task_id );
-
     void run();
-
     void stop( std::string task_id );
+    void task_finish( std::string task_id , Executor* executor );
 
-    void status( std::string task_id , TaskDescripter::TaskDescripterStatus status );
+    Error launch( TaskDescripter* task );
+    std::string error() { return error_; };
+    Task* find( std::string task_id );
 
 private:
 
-    friend Singleton<TaskManager>; 
     std::vector<TaskDescripter*> taskdescripters_;
+    std::vector<Task*> task_list_;
+    std::string error_ = ""; 
 
-    std::string error_ = "";
-    bool launch_single( TaskDescripter* task );
-
+    friend Singleton<TaskManager>; 
 };
 
 #endif //!TASK_MANAGER_H_ 

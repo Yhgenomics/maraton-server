@@ -1,6 +1,7 @@
 #include "maraton-server.h"
 #include "Executor.h"
 #include "ExecutorSession.h"
+#include "ExecutorTaskDescripter.hpp"
 
 #include "MessagesHandler.hpp"
 #include "MessageTaskDeliver.hpp"
@@ -31,7 +32,6 @@ void Executor::operator()( ExecutorSession * session )
 
 void Executor::run()
 {
-
     if ( !this->connected() ) return;
 
     if ( this->check_timeout() ) return;
@@ -40,9 +40,7 @@ void Executor::run()
 
 void Executor::stop_task()
 {
-    
-    if ( this->current_task_ == nullptr )
-        return;
+    if ( this->current_task_ == nullptr ) return;
 
     MessageTaskCancel msg;
     msg.task_id( this->current_task_->id() );
@@ -54,35 +52,48 @@ ExecutorSession * Executor::session()
     return this->session_;
 }
 
-bool Executor::launch_task( TaskDescripter* task )
+Error Executor::launch_task( ExecutorTaskDescripter* task )
 {
+    Error err;
+    err.code( 0 );
+
     if ( this->current_task_ != nullptr )
     {
-        return false;
+        err.code( 1 );
+        err.message( this->id()+": task running" );
+        return err;
     }
 
     this->current_task( task );
 
     if ( task->aligner().empty() )
-        return false;
+    {
+        err.code( 1 );
+        err.message( this->id() + ": no aligner assigned" );
+        return err;
+
+    }
 
     if ( task->fastq().empty() )
-        return false;
+    {
+        err.code( 1 );
+        err.message( this->id() + ": no fastq files assigned" );
+        return err;
+    }
 
     MessageTaskDeliver msg;
-
     msg.aligner( task->aligner() );
     msg.task_id( task->id() );
     msg.uri_list( task->fastq() );
 
     this->session()->send( &msg );
 
-    return true;
+    return err;
 }
 
 bool Executor::check_timeout()
 {
-    int delta = Timer::tick() - this->last_update_time_;
+    size_t delta = Timer::tick() - this->last_update_time_;
 
     if ( delta >= EXECUTOR_TIMEOUT )
     {

@@ -8,7 +8,7 @@ namespace Protocol
     static int MessageGreetingHandler( MessageGreeting msg )
     {
         // UserDefineHandler Begin
-        // Your Codes here!
+        // Your Codes here! 
         return 0;
         // UserDefineHandler End 
     }

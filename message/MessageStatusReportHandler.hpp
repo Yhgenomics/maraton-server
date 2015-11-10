@@ -16,12 +16,9 @@ namespace Protocol
         if ( exe == nullptr )
             return -1;
 
-        exe->status( ( Executor::ExecutorStatus ) atoi( msg.reports().c_str() ) );
+        exe->status( static_cast< Executor::ExecutorStatus >( msg.reports() ) );
 
-        std::string id( exe->id() + "\0" );
-        std::string reports( msg.reports() + "\0" );
-
-        Logger::sys( "Executor[%s] changed into %s " , id.c_str() , reports.c_str() );
+        Logger::sys( "[%s] changed status to %ld " , exe->id().c_str() , msg.reports() );
 
         return 0;
         // UserDefineHandler End 

@@ -6,6 +6,7 @@
 #include "HTTPMessageListExecutorHandler.hpp"
 #include "HTTPMessageResultHandler.hpp"
 #include "HTTPMessageTaskStartHandler.hpp"
+#include "HTTPMessageTaskStopHandler.hpp"
 #include "MessageAbilityQueryHandler.hpp"
 #include "MessageAbilityQueryACKHandler.hpp"
 #include "MessageCommandHandler.hpp"
@@ -24,6 +25,7 @@
 #include "MessageTaskQueryHandler.hpp"
 #include "MessageTaskQueryACKHandler.hpp"
 #include "MessageTaskRestartHandler.hpp"
+#include "MessageTaskResultHandler.hpp"
 
 using namespace std;
 namespace Protocol
@@ -50,6 +52,10 @@ namespace Protocol
                 
                 case 10000:
                     return HTTPMessageTaskStartHandler( HTTPMessageTaskStart( message ) );
+                    break;
+                
+                case 10001:
+                    return HTTPMessageTaskStopHandler( HTTPMessageTaskStop( message ) );
                     break;
                 
                 case 101:
@@ -122,6 +128,10 @@ namespace Protocol
                 
                 case 145:
                     return MessageTaskRestartHandler( MessageTaskRestart( message ) );
+                    break;
+                
+                case 133:
+                    return MessageTaskResultHandler( MessageTaskResult( message ) );
                     break;
                 
                 default:

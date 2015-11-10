@@ -11,6 +11,7 @@ Executor * ExecutorManager::find( int session_id )
 {
     for ( auto result : this->instances() )
     {
+
         if ( result->session()->id() == session_id )
         {
             return result;
@@ -23,6 +24,7 @@ Executor * ExecutorManager::find( std::string executor_id )
 {
     for ( auto result : this->instances() )
     {
+
         if ( result->id() == executor_id )
         {
             return result;
@@ -30,6 +32,22 @@ Executor * ExecutorManager::find( std::string executor_id )
     }
 
     return nullptr;
+}
+
+std::vector<Executor*> ExecutorManager::find_by_taskid( std::string task_id )
+{
+    std::vector<Executor*> result;
+
+    for ( auto ins : this->instances() )
+    {
+
+        if ( ins->current_task() != nullptr && ins->current_task()->id() == task_id )
+        {
+            result.push_back( ins );
+        }
+    }
+
+    return result;
 }
 
 void ExecutorManager::run()

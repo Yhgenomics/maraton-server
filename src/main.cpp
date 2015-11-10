@@ -14,6 +14,7 @@
 #include "TaskManager.h"
 #include "HTTPMessageResult.hpp"
 #include "SysProcess.h"
+#include "Configuration.h"
 
 #include "uv.h"
 
@@ -28,13 +29,9 @@ void timer_callback( uv_timer_t* timer )
     ExecutorManager::instance()->run();
     TaskManager::instance()->run();
 }
-
  
 int main(int argc,char** argv)
-{    
-    ExecutorSession* s;
-    std::unique_ptr<Session> sessionPtr(s);
-
+{     
     SessionManager<ExecutorSession>::instance()->on_create( 
         [] (ExecutorSession* session) {
 
@@ -49,7 +46,8 @@ int main(int argc,char** argv)
             } );
 
             //=======================================
-            session->on_close( [] (ClusterSession* session) { 
+            session->on_close( [] (ClusterSession* session) 
+            { 
                 auto executor = ExecutorManager::instance()->find( session );
                 ExecutorManager::instance()->pop( executor );
                 Logger::sys( "TCPSession %d closed", session->id() );
@@ -59,13 +57,14 @@ int main(int argc,char** argv)
             ExecutorManager::instance()->push( executor );
 
             Logger::sys( "TCPSession %d connected", session->id() );
-        } 
+        }
     );
 
     SessionManager<RESTSession>::instance()->on_create(
         [] ( RESTSession* session ) {
 
-			session->on_message( [] ( Message* msg ) {
+			session->on_message( [] ( Message* msg ) 
+            {
                 
                 if ( Protocol::MessagesHandler::process( msg ) < 0 )
                 {

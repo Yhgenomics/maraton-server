@@ -14,6 +14,8 @@
 #include "maraton-server.h"
 #include "ExecutorSession.h"
 #include "TaskDescripter.hpp"
+#include "Error.h"
+#include "ExecutorTaskDescripter.hpp"
 
 using namespace std;
 
@@ -23,12 +25,17 @@ public:
 
     enum ExecutorStatus
     {
-        kUnknow= 0 ,
-        kBooting ,
-        kDownloading,
-        kIdle ,
-        kComputing ,
-        kUploading ,
+        kUnknow              = 0,
+        kBooting             = 1,
+        kSelfTesting         = 2,
+        kStandby             = 3,
+        kError               = 4,
+        kResourceDownloading = 10,
+        kTaskDataPreparing   = 11,
+        kComputing           = 12,
+        kUploading           = 13,
+        kTaskFinished        = 14,
+        kException           = 20
     };
 
     Executor( ExecutorSession * session );
@@ -41,7 +48,7 @@ public:
     void run();
     void stop_task();
     //void command( std::string command , std::string uris, std::string run_as_user );
-    bool launch_task( TaskDescripter* value );
+    Error launch_task( ExecutorTaskDescripter* value );
 
     //getter & setter
     ExecutorSession* session();
@@ -63,15 +70,15 @@ public:
     void status( ExecutorStatus value ) { status_ = value; };
     ExecutorStatus status() { return status_; };
 
-    void current_task( TaskDescripter* value ) { SAFE_DELETE( this->current_task_ ); this->current_task_ = std::move( value ); };
-    TaskDescripter* current_task() { return this->current_task_; };
+    void current_task( ExecutorTaskDescripter* value ) { SAFE_DELETE( this->current_task_ ); this->current_task_ = value; };
+    ExecutorTaskDescripter* current_task() { return this->current_task_; };
 
 private:
 
     ExecutorSession* session_;
     
     //variable
-    int last_update_time_ = 0;
+    size_t last_update_time_ = 0;
     bool connected_ = true;
 
     //property
@@ -80,7 +87,7 @@ private:
     string id_ = "";
     size_t ability_ = 0;
     ExecutorStatus status_ = ExecutorStatus::kUnknow;
-    TaskDescripter* current_task_ = nullptr;
+    ExecutorTaskDescripter* current_task_ = nullptr;
 
     //func
     bool check_timeout();

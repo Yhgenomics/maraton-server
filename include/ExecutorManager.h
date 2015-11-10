@@ -21,6 +21,7 @@ public:
     Executor* find( Session* session );
     Executor* find( int session_id );
     Executor* find( std::string executor_id );
+    std::vector<Executor*> find_by_taskid( std::string task_id );
 
     void run();
     bool pop( Executor* instance ) override;

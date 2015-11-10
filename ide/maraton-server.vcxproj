@@ -19,9 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Error.cpp" />
     <ClCompile Include="..\src\Executor.cpp" />
     <ClCompile Include="..\src\ExecutorManager.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\Task.cpp" />
     <ClCompile Include="..\src\TaskManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -30,65 +32,26 @@
     <ClInclude Include="..\http\HTTPMessageExecutorListHandler.hpp" />
     <ClInclude Include="..\http\HTTPMessageRootHandler.hpp" />
     <ClInclude Include="..\http\HTTPMessageTaskListHandler.hpp" />
-    <ClInclude Include="..\include\android-ifaddrs.h" />
-    <ClInclude Include="..\include\Buffer.hpp" />
-    <ClInclude Include="..\include\CircleBuffer.hpp" />
-    <ClInclude Include="..\include\ClusterSession.h" />
+    <ClInclude Include="..\include\Error.h" />
     <ClInclude Include="..\include\Executor.h" />
     <ClInclude Include="..\include\ExecutorManager.h" />
-    <ClInclude Include="..\include\ExecutorSession.h" />
     <ClInclude Include="..\include\ExecutorTaskDescripter.hpp" />
-    <ClInclude Include="..\include\HTTP.h" />
-    <ClInclude Include="..\include\HTTPHandler.h" />
-    <ClInclude Include="..\include\HTTPRequest.hpp" />
-    <ClInclude Include="..\include\HTTPResponse.hpp" />
-    <ClInclude Include="..\include\HTTPRouter.hpp" />
-    <ClInclude Include="..\include\HTTPSession.h" />
-    <ClInclude Include="..\include\json.hpp" />
-    <ClInclude Include="..\include\Logger.hpp" />
-    <ClInclude Include="..\include\Macros.h" />
-    <ClInclude Include="..\include\Manager.hpp" />
     <ClInclude Include="..\include\maraton-server.h" />
-    <ClInclude Include="..\include\maraton.h" />
-    <ClInclude Include="..\include\MaratonMath.hpp" />
-    <ClInclude Include="..\include\MasterSession.h" />
-    <ClInclude Include="..\include\Message.h" />
-    <ClInclude Include="..\include\pthread-fixes.h" />
-    <ClInclude Include="..\include\RESTSession.h" />
-    <ClInclude Include="..\include\Session.h" />
-    <ClInclude Include="..\include\SessionManager.hpp" />
-    <ClInclude Include="..\include\Singleton.hpp" />
-    <ClInclude Include="..\include\stdint-msvc2008.h" />
-    <ClInclude Include="..\include\SysProcess.h" />
+    <ClInclude Include="..\include\Task.h" />
     <ClInclude Include="..\include\TaskDescripter.hpp" />
     <ClInclude Include="..\include\TaskManager.h" />
-    <ClInclude Include="..\include\Timer.hpp" />
-    <ClInclude Include="..\include\tree.h" />
-    <ClInclude Include="..\include\Types.h" />
-    <ClInclude Include="..\include\UUID.hpp" />
-    <ClInclude Include="..\include\uv-aix.h" />
-    <ClInclude Include="..\include\uv-bsd.h" />
-    <ClInclude Include="..\include\uv-darwin.h" />
-    <ClInclude Include="..\include\uv-errno.h" />
-    <ClInclude Include="..\include\uv-linux.h" />
-    <ClInclude Include="..\include\uv-sunos.h" />
-    <ClInclude Include="..\include\uv-threadpool.h" />
-    <ClInclude Include="..\include\uv-unix.h" />
-    <ClInclude Include="..\include\uv-version.h" />
-    <ClInclude Include="..\include\uv-win.h" />
-    <ClInclude Include="..\include\uv.h" />
-    <ClInclude Include="..\include\UVSockService.h" />
-    <ClInclude Include="..\include\vld.h" />
-    <ClInclude Include="..\include\vld_def.h" />
-    <ClInclude Include="..\include\Zlib.hpp" />
     <ClInclude Include="..\message\HTTPMessageCommand.hpp" />
     <ClInclude Include="..\message\HTTPMessageCommandHandler.hpp" />
     <ClInclude Include="..\message\HTTPMessageListExecutor.hpp" />
     <ClInclude Include="..\message\HTTPMessageListExecutorHandler.hpp" />
     <ClInclude Include="..\message\HTTPMessageResult.hpp" />
     <ClInclude Include="..\message\HTTPMessageResultHandler.hpp" />
+    <ClInclude Include="..\message\HTTPMessageTaskList.hpp" />
+    <ClInclude Include="..\message\HTTPMessageTaskListHandler.hpp" />
     <ClInclude Include="..\message\HTTPMessageTaskStart.hpp" />
     <ClInclude Include="..\message\HTTPMessageTaskStartHandler.hpp" />
+    <ClInclude Include="..\message\HTTPMessageTaskStop.hpp" />
+    <ClInclude Include="..\message\HTTPMessageTaskStopHandler.hpp" />
     <ClInclude Include="..\message\MessageAbilityQuery.hpp" />
     <ClInclude Include="..\message\MessageAbilityQueryACK.hpp" />
     <ClInclude Include="..\message\MessageAbilityQueryACKHandler.hpp" />
@@ -126,6 +89,8 @@
     <ClInclude Include="..\message\MessageTaskQueryHandler.hpp" />
     <ClInclude Include="..\message\MessageTaskRestart.hpp" />
     <ClInclude Include="..\message\MessageTaskRestartHandler.hpp" />
+    <ClInclude Include="..\message\MessageTaskResult.hpp" />
+    <ClInclude Include="..\message\MessageTaskResultHandler.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C41805F9-772D-47FD-A02F-218FA3B16849}</ProjectGuid>

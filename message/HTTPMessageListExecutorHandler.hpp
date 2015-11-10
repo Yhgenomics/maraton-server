@@ -3,8 +3,8 @@
 
 #include "HTTPMessageListExecutor.hpp"
 #include "ExecutorManager.h"
-#include "HTTPMessageResult.hpp"
 #include "json.hpp"
+#include "HTTPMessageResult.hpp"
 
 namespace Protocol
 {
@@ -12,12 +12,12 @@ namespace Protocol
     {
         // UserDefineHandler Begin
         // Your Codes here!
+
         HTTPMessageResult result;
         result.result( 0 );
 
         auto list = ExecutorManager::instance()->list();
         nlohmann::json json;
-
 
         for ( auto exe : list )
         {
@@ -35,6 +35,7 @@ namespace Protocol
         msg.owner()->send( &result );
 
         return 0;
+
         // UserDefineHandler End 
     }
     

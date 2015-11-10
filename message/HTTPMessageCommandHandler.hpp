@@ -1,12 +1,10 @@
 #ifndef HTTPMESSAGE_COMMAND_HANDLER_HPP_
 #define HTTPMESSAGE_COMMAND_HANDLER_HPP_
 
-#include <string.h>
-
 #include "HTTPMessageCommand.hpp"
 #include "ExecutorManager.h"
-#include "MessageCommand.hpp"
 #include "HTTPMessageResult.hpp"
+#include "MessageCommand.hpp"
 
 namespace Protocol
 {
@@ -25,14 +23,16 @@ namespace Protocol
 
             if ( exe == nullptr )
             {
-                ret_data += "Executor " + exe_id + " not found";
-                continue;
+                ret_data += exe_id + " not found\r\n";
+                result.result( 1 );
+                break;
             }
 
-            if ( exe->status() != Executor::ExecutorStatus::kIdle )
+            if ( exe->status() != Executor::ExecutorStatus::kStandby )
             {
-                ret_data += "Executor " + exe_id + " not kIdle";
-                continue;
+                ret_data += exe_id + " not kIdle\r\n";
+                result.result( 1 );
+                break;
             }
 
             MessageCommand cmd_msg;
@@ -48,6 +48,7 @@ namespace Protocol
         msg.owner()->send( &result );
 
         return 0;
+
         // UserDefineHandler End 
     }
     

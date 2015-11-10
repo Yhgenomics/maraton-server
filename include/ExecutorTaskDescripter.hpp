@@ -19,9 +19,10 @@ public:
     PP_DEF( std::string , aligner )
     PP_DEF( std::vector<std::string> , args )
     PP_DEF( std::vector<std::string> , fastq )
-
+    PP_DEF( std::string, id)
 private:
 
+    std::string id_;
     std::string aligner_;
     std::vector<std::string> args_;
     std::vector<std::string> fastq_;

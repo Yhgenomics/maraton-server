@@ -3,6 +3,7 @@
 
 #include "HTTPMessageTaskStart.hpp"
 #include "TaskManager.h"
+#include "ExecutorManager.h"
 
 namespace Protocol
 {
@@ -10,6 +11,7 @@ namespace Protocol
     {
         // UserDefineHandler Begin
         // Your Codes here!
+
         HTTPMessageResult result;
 
         TaskDescripter* task = new TaskDescripter();
@@ -19,16 +21,15 @@ namespace Protocol
         task->id( msg.id() );
         task->executor( msg.executor() );
 
-        if ( !TaskManager::instance()->launch( task ) )
-        {
-            result.result( 1 );
-            result.message( TaskManager::instance()->error()  );
-        }
+        auto err = TaskManager::instance()->launch( task );
+       
+        result.result( static_cast< int >( err.code() ) );
+        result.message( err.message() );
 
-        result.result( 0 );
         msg.owner()->send( &result );
 
         return 0;
+
         // UserDefineHandler End 
     }
     
