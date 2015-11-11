@@ -64,9 +64,9 @@ public:
 
 private:
 
-    std::string id_ = "";
-    std::string name_ = "";
-    std::string aligner_ = "";
+    std::string              id_ = "";
+    std::string              name_ = "";
+    std::string              aligner_ = "";
     std::vector<std::string> fastq_;
     std::vector<std::string> executor_;
     std::vector<std::string> args_;

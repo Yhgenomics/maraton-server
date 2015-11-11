@@ -1,9 +1,10 @@
 /* * * * * * * * * * * * * * * *
 * YHGenomics Inc.
 * Author     : yang shubo
-* Date       :
+* Date       : 2015-11-09
 * Description:
 * * * * * * * * * * * * * * * */
+
 #ifndef ERROR_H_
 #define ERROR_H_ 
 

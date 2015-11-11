@@ -17,29 +17,31 @@ Task::~Task()
 void Task::add_executor( Executor * executor )
 {
     executor_list_.push_back( executor );
+    executor_running_list_.push_back( executor );
 }
 
 void Task::finish( Executor * executor )
 {
 
-    for ( auto itr = executor_list_.begin(); itr != executor_list_.end(); itr++ )
+    for ( auto itr = executor_running_list_.begin(); itr != executor_running_list_.end(); itr++ )
     {
 
         if ( *itr == executor )
         {
-            executor_list_.erase( itr );
+            executor_running_list_.erase( itr );
             break;
         }
     }
 
-    if ( 0 == this->executor_list_.size() )
+    if ( 0 == this->executor_running_list_.size() )
     {
+        this->cast_time_ = Timer::tick() - this->start_time_;
         this->status_ = TaskStatus::kFinished;
     }
 }
 
 Error Task::launch()
-{
+{ 
     Error error(0,"");
 
     if ( this->descripter_ == nullptr )
@@ -50,20 +52,10 @@ Error Task::launch()
         return error;
     }
 
-    std::vector<Executor*> executors;
+    std::vector<Executor*> executors = executor_running_list_;
     size_t sum_score = 0;
 
-    for ( auto executor_id : this->descripter()->executor() )
-    {
-        auto executor = ExecutorManager::instance()->find( executor_id );
-
-        if ( executor == nullptr ) continue;
-
-        executors.push_back( executor );
-        sum_score += executor->ability();
-    }
-
-    // check if all executors are idle
+    // check if all executors are standby
     for ( auto executor : executors )
     {
         if ( executor->status() != Executor::ExecutorStatus::kStandby )
@@ -73,6 +65,16 @@ Error Task::launch()
             this->status_ = TaskStatus::kError;
             return error;
         }
+    }
+
+    for ( auto executor_id : this->descripter()->executor() )
+    {
+        auto executor = ExecutorManager::instance()->find( executor_id );
+
+        if ( executor == nullptr ) continue;
+
+        //executors.push_back( executor );
+        sum_score += executor->ability();
     }
 
     size_t exe_count = executors.size();
@@ -113,6 +115,7 @@ Error Task::launch()
 
     if ( 0 == error.code() )
     {
+        this->start_time_ = Timer::tick();
         this->status_ = TaskStatus::kRunning;
     }
     else

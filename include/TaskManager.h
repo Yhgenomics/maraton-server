@@ -19,19 +19,19 @@ class TaskManager :
 {
 public:
 
-    void run();
-    void stop( std::string task_id );
-    void task_finish( std::string task_id , Executor* executor );
+    void                            run();
+    void                            stop( std::string task_id );
+    void                            task_finish( std::string task_id , Executor* executor );
 
-    Error launch( TaskDescripter* task );
-    std::string error() { return error_; };
-    Task* find( std::string task_id );
+    Error                           launch( TaskDescripter* task );
+    std::string                     error() { return error_; };
+    Task*                           find( std::string task_id );
 
 private:
 
-    std::vector<TaskDescripter*> taskdescripters_;
-    std::vector<Task*> task_list_;
-    std::string error_ = ""; 
+    std::vector<TaskDescripter*>    taskdescripters_;
+    std::vector<Task*>              task_list_;
+    std::string                     error_ = ""; 
 
     friend Singleton<TaskManager>; 
 };

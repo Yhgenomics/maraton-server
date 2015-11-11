@@ -42,55 +42,56 @@ public:
     ~Executor();
 
     //operator
-    void operator()( ExecutorSession* session );
+    void                        operator()( ExecutorSession* session );
     
     //func
-    void run();
-    void stop_task();
+    void                        run();
+    void                        stop_task();
+
     //void command( std::string command , std::string uris, std::string run_as_user );
-    Error launch_task( ExecutorTaskDescripter* value );
+    Error                       launch_task( ExecutorTaskDescripter* value );
 
     //getter & setter
-    ExecutorSession* session();
-    bool connected() { return this->connected_; };
-    void refresh() { this->last_update_time_ = Timer::tick(); };
+    ExecutorSession*            session();
+    bool                        connected() { return this->connected_; };
+    void                        refresh() { this->last_update_time_ = Timer::tick(); };
     
-    void memory_size( size_t value ) { memory_size_ = value; };
-    size_t memory_size() { return memory_size_; };
+    void                        memory_size( size_t value ) { memory_size_ = value; };
+    size_t                      memory_size() { return memory_size_; };
 
-    void disk_size( size_t value ) { disk_size_ = value; };
-    size_t disk_size() { return disk_size_; };
+    void                        disk_size( size_t value ) { disk_size_ = value; };
+    size_t                      disk_size() { return disk_size_; };
 
-    void id( string value ) { id_ = value; };
-    string id() { return id_; };
+    void                        id( string value ) { id_ = value; };
+    string                      id() { return id_; };
 
-    void ability( size_t value ) { ability_ = value; };
-    size_t ability() { return ability_; };
+    void                        ability( size_t value ) { ability_ = value; };
+    size_t                      ability() { return ability_; };
 
-    void status( ExecutorStatus value ) { status_ = value; };
-    ExecutorStatus status() { return status_; };
+    void                        status( ExecutorStatus value ) { status_ = value; };
+    ExecutorStatus              status() { return status_; };
 
-    void current_task( ExecutorTaskDescripter* value ) { SAFE_DELETE( this->current_task_ ); this->current_task_ = value; };
-    ExecutorTaskDescripter* current_task() { return this->current_task_; };
+    void                        current_task( ExecutorTaskDescripter* value ) { SAFE_DELETE( this->current_task_ ); this->current_task_ = value; };
+    ExecutorTaskDescripter*     current_task() { return this->current_task_; };
 
 private:
 
-    ExecutorSession* session_;
+    ExecutorSession*            session_;
     
     //variable
-    size_t last_update_time_ = 0;
-    bool connected_ = true;
+    size_t                      last_update_time_ = 0;
+    bool                        connected_ = true;
 
     //property
-    size_t memory_size_ = 0;
-    size_t disk_size_ = 0;
-    string id_ = "";
-    size_t ability_ = 0;
-    ExecutorStatus status_ = ExecutorStatus::kUnknow;
-    ExecutorTaskDescripter* current_task_ = nullptr;
+    size_t                      memory_size_ = 0;
+    size_t                      disk_size_ = 0;
+    string                      id_ = "";
+    size_t                      ability_ = 0;
+    ExecutorStatus              status_ = ExecutorStatus::kUnknow;
+    ExecutorTaskDescripter*     current_task_ = nullptr;
 
     //func
-    bool check_timeout();
+    bool                        check_timeout();
 };
 
 #endif //!EXECUTOR_H_ 
