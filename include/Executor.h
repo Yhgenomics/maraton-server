@@ -13,9 +13,9 @@
 #include "maraton.h"
 #include "maraton-server.h"
 #include "ExecutorSession.h"
-#include "TaskDescripter.hpp"
+#include "TaskDescripter.h"
 #include "Error.h"
-#include "ExecutorTaskDescripter.hpp"
+#include "ExecutorTaskDescripter.h"
 
 using namespace std;
 
@@ -25,16 +25,16 @@ public:
 
     enum ExecutorStatus
     {
-        kUnknow              = 0,
-        kBooting             = 1,
-        kSelfTesting         = 2,
-        kStandby             = 3,
-        kError               = 4,
-        kResourceDownloading = 10,
-        kTaskDataPreparing   = 11,
-        kComputing           = 12,
-        kUploading           = 13,
-        kTaskFinished        = 14,
+        kUnknow              = 0 ,
+        kBooting             = 1 ,
+        kSelfTesting         = 2 ,
+        kStandby             = 3 ,
+        kError               = 4 ,
+        kResourceDownloading = 10 ,
+        kTaskDataPreparing   = 11 ,
+        kComputing           = 12 ,
+        kUploading           = 13 ,
+        kTaskFinished        = 14 ,
         kException           = 20
     };
 
@@ -74,6 +74,9 @@ public:
     void                        current_task( ExecutorTaskDescripter* value ) { SAFE_DELETE( this->current_task_ ); this->current_task_ = value; };
     ExecutorTaskDescripter*     current_task() { return this->current_task_; };
 
+    void                        progress( size_t value ) { this->progress_ = value; };
+    size_t                      progress() { return this->progress_; };
+
 private:
 
     ExecutorSession*            session_;
@@ -89,9 +92,10 @@ private:
     size_t                      ability_ = 0;
     ExecutorStatus              status_ = ExecutorStatus::kUnknow;
     ExecutorTaskDescripter*     current_task_ = nullptr;
+    size_t                      progress_ = 0;
 
     //func
     bool                        check_timeout();
 };
 
-#endif //!EXECUTOR_H_ 
+#endif // !EXECUTOR_H_ 

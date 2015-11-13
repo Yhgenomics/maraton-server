@@ -59,19 +59,19 @@ public:
     PP_DEF( std::vector<std::string> , fastq )
     PP_DEF( std::vector<std::string> , executor )
     PP_DEF( std::vector<std::string> , args )
-    PP_DEF(TaskDescripterStatus, status)
+    PP_DEF( TaskDescripterStatus , status)
     PP_DEF( int , progress )
 
 private:
 
-    std::string              id_ = "";
-    std::string              name_ = "";
-    std::string              aligner_ = "";
-    std::vector<std::string> fastq_;
-    std::vector<std::string> executor_;
-    std::vector<std::string> args_;
-    TaskDescripterStatus status_ = TaskDescripterStatus::kUnknow;
-    int progress_ = 0;
+    std::string                 id_ = "";
+    std::string                 name_ = "";
+    std::string                 aligner_ = "";
+    std::vector<std::string>    fastq_;
+    std::vector<std::string>    executor_;
+    std::vector<std::string>    args_;
+    TaskDescripterStatus        status_ = TaskDescripterStatus::kUnknow;
+    int                         progress_ = 0;
 };
 
-#endif //!TASK_HPP_ 
+#endif // !TASK_HPP_ 

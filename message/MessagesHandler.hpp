@@ -22,6 +22,7 @@
 #include "MessageTaskDeliverHandler.hpp"
 #include "MessageTaskDeliverACKHandler.hpp"
 #include "MessageTaskPauseHandler.hpp"
+#include "MessageTaskProgressHandler.hpp"
 #include "MessageTaskQueryHandler.hpp"
 #include "MessageTaskQueryACKHandler.hpp"
 #include "MessageTaskRestartHandler.hpp"
@@ -116,6 +117,10 @@ namespace Protocol
                 
                 case 142:
                     return MessageTaskPauseHandler( MessageTaskPause( message ) );
+                    break;
+                
+                case 134:
+                    return MessageTaskProgressHandler( MessageTaskProgress( message ) );
                     break;
                 
                 case 121:

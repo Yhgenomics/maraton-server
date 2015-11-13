@@ -10,15 +10,18 @@ Error TaskManager::launch( TaskDescripter* task )
 {
     Task* t = new Task( task );
     t->status( Task::TaskStatus::kPending );
-    this->task_list_.insert( task_list_ .begin() , t );
 
-    /*auto error = t->launch();
-
-    if ( error.code() > 0 )
+    for ( auto executor_id : task->executor() )
     {
-        this->stop( t->descripter()->id() );
-    }*/
+        auto executor = ExecutorManager::instance()->find( executor_id );
 
+        if ( executor == nullptr ) continue;
+
+        t->add_executor( executor );
+    }
+
+    this->task_list_.insert( task_list_ .begin() , t );
+     
     return Error( 0 , "" );
 }
 
@@ -56,12 +59,10 @@ void TaskManager::run()
 
 void TaskManager::stop( std::string task_id )
 {
-
     for ( auto itr = this->task_list_.begin(); itr != this->task_list_.end(); itr++ )
     {
-
-        if ( Task::TaskStatus::kFinished != ( *itr )->status() && 
-            task_id == (*itr)->descripter()->id() )
+        if ( Task::TaskStatus::kFinished != ( *itr )->status() 
+             && task_id == (*itr)->descripter()->id() )
         {
             ( *itr )->stop();
             this->task_list_.erase( itr );

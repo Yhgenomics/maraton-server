@@ -1,9 +1,10 @@
 /* * * * * * * * * * * * * * * *
 * YHGenomics Inc.
 * Author     : yang shubo
-* Date       :
+* Date       : 2015-11-10
 * Description:
 * * * * * * * * * * * * * * * */
+
 #ifndef EXECUTOR_TASK_DESCRIPTER_H_
 #define EXECUTOR_TASK_DESCRIPTER_H_
 
@@ -11,10 +12,14 @@
 #include <string>
 
 #include "maraton-server.h"
+#include "TaskDescripter.h"
 
 class ExecutorTaskDescripter
 {
 public:
+
+    ExecutorTaskDescripter();
+    ExecutorTaskDescripter( TaskDescripter * descripter , std::vector<std::string> fastq );
 
     PP_DEF( std::string , aligner )
     PP_DEF( std::vector<std::string> , args )
@@ -28,4 +33,4 @@ private:
     std::vector<std::string>    fastq_;
 };
 
-#endif //!EXECUTOR_TASK_DESCRIPTER_H_ 
+#endif // !EXECUTOR_TASK_DESCRIPTER_H_ 

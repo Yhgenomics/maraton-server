@@ -22,8 +22,10 @@
     <ClCompile Include="..\src\Error.cpp" />
     <ClCompile Include="..\src\Executor.cpp" />
     <ClCompile Include="..\src\ExecutorManager.cpp" />
+    <ClCompile Include="..\src\ExecutorTaskDescripter.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Task.cpp" />
+    <ClCompile Include="..\src\TaskDescripter.cpp" />
     <ClCompile Include="..\src\TaskManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -35,10 +37,10 @@
     <ClInclude Include="..\include\Error.h" />
     <ClInclude Include="..\include\Executor.h" />
     <ClInclude Include="..\include\ExecutorManager.h" />
-    <ClInclude Include="..\include\ExecutorTaskDescripter.hpp" />
+    <ClInclude Include="..\include\ExecutorTaskDescripter.h" />
     <ClInclude Include="..\include\maraton-server.h" />
     <ClInclude Include="..\include\Task.h" />
-    <ClInclude Include="..\include\TaskDescripter.hpp" />
+    <ClInclude Include="..\include\TaskDescripter.h" />
     <ClInclude Include="..\include\TaskManager.h" />
     <ClInclude Include="..\message\HTTPMessageCommand.hpp" />
     <ClInclude Include="..\message\HTTPMessageCommandHandler.hpp" />
@@ -83,6 +85,8 @@
     <ClInclude Include="..\message\MessageTaskDeliverHandler.hpp" />
     <ClInclude Include="..\message\MessageTaskPause.hpp" />
     <ClInclude Include="..\message\MessageTaskPauseHandler.hpp" />
+    <ClInclude Include="..\message\MessageTaskProgress.hpp" />
+    <ClInclude Include="..\message\MessageTaskProgressHandler.hpp" />
     <ClInclude Include="..\message\MessageTaskQuery.hpp" />
     <ClInclude Include="..\message\MessageTaskQueryACK.hpp" />
     <ClInclude Include="..\message\MessageTaskQueryACKHandler.hpp" />

@@ -1,9 +1,10 @@
 /* * * * * * * * * * * * * * * *
 * YHGenomics Inc.
 * Author     : yang shubo
-* Date       :
+* Date       : 2015-11-06
 * Description:
 * * * * * * * * * * * * * * * */
+
 #ifndef TASK_MANAGER_H_
 #define TASK_MANAGER_H_ 
 
@@ -11,7 +12,7 @@
 #include <vector>
 
 #include "maraton.h"
-#include "TaskDescripter.hpp"
+#include "TaskDescripter.h"
 #include "Task.h"
 
 class TaskManager :
@@ -36,4 +37,4 @@ private:
     friend Singleton<TaskManager>; 
 };
 
-#endif //!TASK_MANAGER_H_ 
+#endif // !TASK_MANAGER_H_ 

@@ -1,7 +1,7 @@
 #include "Task.h"
 #include "ExecutorManager.h"
 #include "MaratonMath.hpp"
-#include "ExecutorTaskDescripter.hpp"
+#include "ExecutorTaskDescripter.h"
 
 Task::Task( TaskDescripter * descripter )
 {
@@ -22,10 +22,8 @@ void Task::add_executor( Executor * executor )
 
 void Task::finish( Executor * executor )
 {
-
     for ( auto itr = executor_running_list_.begin(); itr != executor_running_list_.end(); itr++ )
     {
-
         if ( *itr == executor )
         {
             executor_running_list_.erase( itr );
@@ -35,8 +33,8 @@ void Task::finish( Executor * executor )
 
     if ( 0 == this->executor_running_list_.size() )
     {
-        this->cast_time_ = Timer::tick() - this->start_time_;
-        this->status_ = TaskStatus::kFinished;
+        this->cast_time_    = Timer::tick() - this->start_time_;
+        this->status_       = TaskStatus::kMerging;
     }
 }
 
@@ -73,12 +71,11 @@ Error Task::launch()
 
         if ( executor == nullptr ) continue;
 
-        //executors.push_back( executor );
         sum_score += executor->ability();
     }
 
-    size_t exe_count = executors.size();
-    size_t fastq_count = this->descripter()->fastq().size();
+    size_t exe_count    = executors.size();
+    size_t fastq_count  = this->descripter()->fastq().size();
 
     std::vector<std::string> fastqs( this->descripter()->fastq() );
 
@@ -88,7 +85,9 @@ Error Task::launch()
     {
         exe_fastq_list.clear();
 
-        int fastq_size = static_cast< int > ( maraton_round( ( ( double )executor->ability() / ( double )sum_score )  * fastq_count ) );
+        int fastq_size = static_cast< int > ( 
+            maraton_round( ( ( double )executor->ability() / ( double )sum_score )  * fastq_count ) 
+        );
 
         for ( size_t i = 0; i < fastq_size; i++ )
         {
@@ -96,11 +95,10 @@ Error Task::launch()
             fastqs.erase( fastqs.begin() );
         }
 
-        ExecutorTaskDescripter* executor_task_des = new ExecutorTaskDescripter();
-        executor_task_des->id( this->descripter()->id() );
-        executor_task_des->args( this->descripter()->args() );
-        executor_task_des->aligner( this->descripter()->aligner() );
-        executor_task_des->fastq( exe_fastq_list );
+        ExecutorTaskDescripter* executor_task_des = new ExecutorTaskDescripter( 
+            this->descripter() , 
+            exe_fastq_list 
+        );
        
         auto executor_err = executor->launch_task( executor_task_des );
 

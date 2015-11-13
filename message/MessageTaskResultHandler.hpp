@@ -11,7 +11,6 @@ namespace Protocol
     {
         // UserDefineHandler Begin
         // Your Codes here!
-
         auto exe = ExecutorManager::instance()->find( msg.owner()->id() );
         auto task = TaskManager::instance()->find( msg.task_id() );
 
@@ -30,7 +29,6 @@ namespace Protocol
 
         return 0;
         // UserDefineHandler End 
-    }
-    
+    } 
 } // End of namespace Protocol
 #endif // !Message_Task_Result_HANDLER_HPP_

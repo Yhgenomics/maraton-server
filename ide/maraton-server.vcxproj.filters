@@ -17,6 +17,12 @@
     <ClCompile Include="..\src\Error.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ExecutorTaskDescripter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TaskDescripter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -61,12 +67,6 @@
       <Filter>http</Filter>
     </ClInclude>
     <ClInclude Include="..\include\TaskManager.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\TaskDescripter.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\ExecutorTaskDescripter.hpp">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\message\HTTPMessageCommand.hpp">
@@ -227,6 +227,18 @@
     </ClInclude>
     <ClInclude Include="..\include\Error.h">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ExecutorTaskDescripter.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TaskDescripter.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTaskProgress.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTaskProgressHandler.hpp">
+      <Filter>message</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
