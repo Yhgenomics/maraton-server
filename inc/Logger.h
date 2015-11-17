@@ -10,7 +10,6 @@
 
 #include "stdio.h"
 #include <stdarg.h>
-#include "Singleton.hpp"
 
 class Logger
 {
@@ -20,43 +19,50 @@ public:
     static void sys( const char* fmt, Types... args)
     {
 
-#ifdef WIN32
-        printf( "\033[1;33m[SYS]" );
+#ifdef _WIN32
+        printf( "[SYS] " );
 #else
-        printf( "[SYS]" );
+        printf( "\033[1;33m[SYS] " );
 #endif
 
         printf( fmt, args... );
 
-#ifdef WIN32
-        printf( "\033[0m\r\n" );
-#else
+#ifdef _WIN32
         printf( "\r\n" );
+#else
+        printf( "\033[0m\r\n" );
 #endif      
 
     }
+
     template<typename ...Types>
     static void error( const char* fmt, Types... args )
     {
-#ifdef WIN32
-        printf( "\033[0;31m[ERROR]" );
+#ifdef _WIN32
+        printf( "[ERROR] " );
 #else
-        printf( "[ERROR]" );
+        printf( "\033[0;31m[ERROR] " );
 #endif
 
         printf( fmt , args... );
 
-#ifdef WIN32
-        printf( "\033[0;31m\r\n" );
-#else
+#ifdef _WIN32
         printf( "\r\n" );
+#else
+        printf( "\033[0;31m\r\n" );
 #endif    
     }
 
+    template<typename ...Types>
+    static void log( const char* fmt, Types... args )
+    { 
+        printf( fmt , args... );
+        printf( "\r\n" );
+    }
 private:
 
     Logger() {};
     ~Logger() {};
 };
 
-#endif //LOGER_H_ 
+#endif // !LOGER_H_ 

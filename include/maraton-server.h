@@ -8,11 +8,11 @@
 #ifndef MARATON_SERVER_H_
 #define MARATON_SERVER_H_ 
 
-#include "maraton.h"
 #include <stdio.h> 
 
-#define PP_DEF(__type__,__name__) void __name__( __type__ value ) { __name__##_ = value; }; \
-              __type__ __name__() { return __name__##_; }
+#include "maraton-framework.h"
+#include "ExecutorNode.h"
+#include "MasterFeature.h"
 
 #define EXECUTOR_TIMEOUT 999999999
  

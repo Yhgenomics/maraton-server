@@ -77,8 +77,7 @@ SOFTWARE.
 */
 namespace nlohmann
 {
-
-
+    typedef size_t ssize_t;
     /*!
     @brief unnamed namespace with internal helper functions
     */
@@ -6745,7 +6744,7 @@ namespace nlohmann
                     return;
                 }
 
-                const ssize_t offset_start = m_start - m_content;
+                const ssize_t offset_start  = m_start - m_content;
                 const ssize_t offset_marker = m_marker - m_start;
                 const ssize_t offset_cursor = m_cursor - m_start;
 

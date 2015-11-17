@@ -13,8 +13,9 @@ namespace Protocol
         // UserDefineHandler Begin
         // Your Codes here!
 
-        HTTPMessageResult result;
-        result.result( 0 );
+        DEF_UPTR( HTTPMessageResult , result );
+
+        result->result( 0 );
 
         auto list = ExecutorManager::instance()->list();
         nlohmann::json json;
@@ -30,9 +31,8 @@ namespace Protocol
             json_exe["task_id"] = exe->current_task() == nullptr ? "" : exe->current_task()->id();
             json.push_back( json_exe );
         }
-
-        result.object( json.dump() );
-        msg.owner()->send( &result );
+        result->object( json.dump() );
+        msg.owner()->send( MOVE(result) );
 
         return 0;
 

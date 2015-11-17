@@ -214,7 +214,7 @@ typedef struct _AFD_POLL_INFO {
  * see http://msdn.microsoft.com/en-us/library/ms741542(v=vs.85).aspx
  */
 typedef struct uv_buf_t {
-  ULONG len;
+  size_t len;
   char* base;
 } uv_buf_t;
 

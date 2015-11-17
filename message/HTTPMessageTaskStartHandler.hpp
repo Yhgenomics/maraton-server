@@ -12,7 +12,7 @@ namespace Protocol
         // UserDefineHandler Begin
         // Your Codes here!
 
-        HTTPMessageResult result;
+        DEF_UPTR( HTTPMessageResult , result );
 
         TaskDescripter* task = new TaskDescripter();
         task->aligner( msg.aligner() );
@@ -23,10 +23,10 @@ namespace Protocol
 
         auto err = TaskManager::instance()->launch( task );
        
-        result.result( static_cast< int >( err.code() ) );
-        result.message( err.message() );
+        result->result( static_cast< int >( err.code() ) );
+        result->message( err.message() );
 
-        msg.owner()->send( &result );
+        msg.owner()->send( MOVE(result) );
 
         return 0;
 

@@ -22,8 +22,10 @@
     <ClCompile Include="..\src\Error.cpp" />
     <ClCompile Include="..\src\Executor.cpp" />
     <ClCompile Include="..\src\ExecutorManager.cpp" />
+    <ClCompile Include="..\src\ExecutorNode.cpp" />
     <ClCompile Include="..\src\ExecutorTaskDescripter.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\MasterFeature.cpp" />
     <ClCompile Include="..\src\Task.cpp" />
     <ClCompile Include="..\src\TaskDescripter.cpp" />
     <ClCompile Include="..\src\TaskManager.cpp" />
@@ -37,8 +39,13 @@
     <ClInclude Include="..\include\Error.h" />
     <ClInclude Include="..\include\Executor.h" />
     <ClInclude Include="..\include\ExecutorManager.h" />
+    <ClInclude Include="..\include\ExecutorNode.h" />
     <ClInclude Include="..\include\ExecutorTaskDescripter.h" />
+    <ClInclude Include="..\include\Macros.h" />
+    <ClInclude Include="..\include\Manager.hpp" />
     <ClInclude Include="..\include\maraton-server.h" />
+    <ClInclude Include="..\include\MaratonMath.hpp" />
+    <ClInclude Include="..\include\MasterFeature.h" />
     <ClInclude Include="..\include\Task.h" />
     <ClInclude Include="..\include\TaskDescripter.h" />
     <ClInclude Include="..\include\TaskManager.h" />
@@ -99,7 +106,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C41805F9-772D-47FD-A02F-218FA3B16849}</ProjectGuid>
     <RootNamespace>maratonserver</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -152,8 +159,8 @@
     <SourcePath>..\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\include;..\message;..\http;$(IncludePath)</IncludePath>
-    <ReferencePath>..\include;..\maraton-framework\include;..\http;$(ReferencePath)</ReferencePath>
+    <IncludePath>..\inc;..\include;..\message;..\http;$(IncludePath)</IncludePath>
+    <ReferencePath>..\inc;..\include;..\maraton-framework\include;..\http;$(ReferencePath)</ReferencePath>
     <LibraryPath>..\lib;$(LibraryPath)</LibraryPath>
     <SourcePath>..\src;..\include;..\http;$(SourcePath)</SourcePath>
   </PropertyGroup>
@@ -183,7 +190,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>maraton-framework_d.lib;libuv_d.lib;advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;userenv.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>maraton-framework.lib;libuv_d.lib;advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;userenv.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

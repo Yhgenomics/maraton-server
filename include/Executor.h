@@ -10,9 +10,9 @@
 
 #include <string.h>
 
-#include "maraton.h"
 #include "maraton-server.h"
-#include "ExecutorSession.h"
+#include "ExecutorNode.h"
+
 #include "TaskDescripter.h"
 #include "Error.h"
 #include "ExecutorTaskDescripter.h"
@@ -38,11 +38,11 @@ public:
         kException           = 20
     };
 
-    Executor( ExecutorSession * session );
+    Executor( ExecutorNode * session );
     ~Executor();
 
     //operator
-    void                        operator()( ExecutorSession* session );
+    void                        operator()( ExecutorNode* session );
     
     //func
     void                        run();
@@ -52,7 +52,7 @@ public:
     Error                       launch_task( ExecutorTaskDescripter* value );
 
     //getter & setter
-    ExecutorSession*            session();
+    ExecutorNode*               session();
     bool                        connected() { return this->connected_; };
     void                        refresh() { this->last_update_time_ = Timer::tick(); };
     
@@ -79,7 +79,7 @@ public:
 
 private:
 
-    ExecutorSession*            session_;
+    ExecutorNode*               session_;
     
     //variable
     size_t                      last_update_time_ = 0;

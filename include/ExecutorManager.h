@@ -8,8 +8,7 @@
 #ifndef EXECUTOR_MANAGER_H_
 #define EXECUTOR_MANAGER_H_ 
 
-#include "maraton.h"
-#include "Session.h"
+#include "Manager.hpp"
 #include "Executor.h"
 
 class ExecutorManager :
@@ -18,7 +17,7 @@ class ExecutorManager :
 {
 public:
 
-    Executor*               find( Session* session );
+    Executor*               find( ClusterNode* session );
     Executor*               find( int session_id );
     Executor*               find( std::string executor_id );
     std::vector<Executor*>  find_by_taskid( std::string task_id );

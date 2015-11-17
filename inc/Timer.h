@@ -19,11 +19,7 @@ class Timer
 {
 public:
 
-    static int tick()
-    {
-        clock_t t = clock();
-        return static_cast< int >( t );
-    };
+    static size_t tick();
      
 };
 

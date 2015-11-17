@@ -23,6 +23,12 @@
     <ClCompile Include="..\src\TaskDescripter.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\MasterFeature.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ExecutorNode.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -239,6 +245,21 @@
     </ClInclude>
     <ClInclude Include="..\message\MessageTaskProgressHandler.hpp">
       <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MasterFeature.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ExecutorNode.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MaratonMath.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Manager.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Macros.h">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

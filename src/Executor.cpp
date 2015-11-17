@@ -1,6 +1,5 @@
 #include "maraton-server.h"
 #include "Executor.h"
-#include "ExecutorSession.h"
 #include "ExecutorTaskDescripter.h"
 
 #include "MessagesHandler.hpp"
@@ -8,14 +7,14 @@
 #include "MessageTaskCancel.hpp"
 
 using namespace Protocol;
-
-Executor::Executor( ExecutorSession * session )
+ 
+Executor::Executor( ExecutorNode * session )
 {
     this->session_ = session;
 
     //say hello to client
-    Protocol::MessageGreeting msg;
-    session->send( &msg );
+    UPTR<Protocol::MessageGreeting> msg = MAKE_UPTR( Protocol::MessageGreeting );
+    session->send( MOVE(msg) );
 
     this->refresh();
 }
@@ -25,9 +24,8 @@ Executor::~Executor()
     SAFE_DELETE( this->current_task_ );
 }
 
-void Executor::operator()( ExecutorSession * session )
+void Executor::operator()( ExecutorNode * session )
 {
-     
 }
 
 void Executor::run()
@@ -41,12 +39,13 @@ void Executor::stop_task()
 {
     if ( this->current_task_ == nullptr ) return;
 
-    MessageTaskCancel msg;
-    msg.task_id( this->current_task_->id() );
-    this->session()->send( &msg );
+    UPTR<Protocol::MessageTaskCancel> msg = MAKE_UPTR( Protocol::MessageTaskCancel );
+    msg->task_id( this->current_task_->id() );
+
+    this->session()->send( MOVE(msg) );
 }
 
-ExecutorSession * Executor::session()
+ExecutorNode * Executor::session()
 {
     return this->session_;
 }
@@ -80,12 +79,12 @@ Error Executor::launch_task( ExecutorTaskDescripter* task )
         return err;
     }
 
-    MessageTaskDeliver msg;
-    msg.aligner( task->aligner() );
-    msg.task_id( task->id() );
-    msg.uri_list( task->fastq() );
+    UPTR<MessageTaskDeliver> msg = MAKE_UPTR(MessageTaskDeliver);
+    msg->aligner( task->aligner() );
+    msg->task_id( task->id() );
+    msg->uri_list( task->fastq() );
 
-    this->session()->send( &msg );
+    this->session()->send( MOVE(msg) );
 
     return err;
 }
@@ -99,7 +98,7 @@ bool Executor::check_timeout()
         this->last_update_time_ = Timer::tick();
         this->connected_        = false;
         this->session_->close();
-        Logger::sys( "Kick %ld\r\n", this->session()->id() );
+        LOG_SYS( "Kick %ld\r\n", this->session()->id() );
         return true;
     }
 
