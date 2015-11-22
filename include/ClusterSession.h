@@ -16,17 +16,17 @@ class ClusterSession :
     public MRT::Session
 {
 public:
-
-    ClusterSession       ( );
-    size_t  id           ( );
-    void    send_message ( uptr<Message> message );
+                                 
+    ClusterSession            ( );
+    size_t  id                ( );
+    virtual void send_message ( uptr<Message> message );
 
 protected:
 
     virtual void on_message ( uptr<Message> message ) = 0;
     virtual void on_connect ( )                        override;
-    void         on_read    ( uptr<MRT::Buffer> data ) override;
-    void         on_write   ( uptr<MRT::Buffer> data ) override;
+    virtual void on_read    ( uptr<MRT::Buffer> data ) override;
+    virtual void on_write   ( uptr<MRT::Buffer> data ) override;
     virtual void on_close   ( )                        override;
 
 private:

@@ -2,6 +2,7 @@
 #include "ExecutorListener.h"
 #include "ExecutorManager.h"
 #include "TaskManager.h"
+#include "RESTAPIListener.h"
 
 int main(int argc,char** argv)
 {     
@@ -17,6 +18,8 @@ int main(int argc,char** argv)
 
         MRT::Maraton::instance( )->regist(
             make_uptr( ExecutorListener , "localhost" ) );
+        MRT::Maraton::instance( )->regist(
+            make_uptr( RestAPIListener , "localhost" ) );
         MRT::Maraton::instance( )->loop( );
     }
     return 0;

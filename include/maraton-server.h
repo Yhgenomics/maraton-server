@@ -13,6 +13,9 @@
 
 #define EXECUTOR_TIMEOUT 999999999
 #define LISTEN_PORT      4455
+#define RESTAPI_PORT     8080
+
+#define REST_SERVER_NAME "YHGenomics/Maraton"
  
 #endif // !MARATON_SERVER_H_ 
 

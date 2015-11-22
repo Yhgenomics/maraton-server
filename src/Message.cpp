@@ -1,6 +1,6 @@
 #include "Message.h"
 #include "ClusterSession.h"
-
+ 
 Message::Message(const std::string json_str )
 { 
     this->raw_data_ = MRT::json::parse( json_str );;

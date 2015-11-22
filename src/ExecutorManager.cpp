@@ -6,7 +6,7 @@ Executor * ExecutorManager::find( ClusterSession * session )
     return this->find( session->id() );
 }
 
-Executor * ExecutorManager::find( int session_id )
+Executor * ExecutorManager::find( size_t session_id )
 {
     for ( auto result : this->instances() )
     {

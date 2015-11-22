@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\ExecutorManager.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -33,6 +32,13 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Message.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\RESTAPIListener.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\RESTAPISession.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -237,12 +243,6 @@
     <ClInclude Include="..\include\MaratonMath.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Manager.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Macros.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\ExecutorListener.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -253,6 +253,12 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Message.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\RESTAPIListener.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\RESTAPISession.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
