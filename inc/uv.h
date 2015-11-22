@@ -48,6 +48,7 @@ extern "C" {
 #include "uv-errno.h"
 #include "uv-version.h"
 #include <stddef.h>
+#include <stdio.h>
 
 #if defined(_MSC_VER) && _MSC_VER < 1600
 # include "stdint-msvc2008.h"
@@ -423,6 +424,10 @@ UV_EXTERN size_t uv_req_size(uv_req_type type);
 UV_EXTERN int uv_is_active(const uv_handle_t* handle);
 
 UV_EXTERN void uv_walk(uv_loop_t* loop, uv_walk_cb walk_cb, void* arg);
+
+/* Helpers for ad hoc debugging, no API/ABI stability guaranteed. */
+UV_EXTERN void uv_print_all_handles(uv_loop_t* loop, FILE* stream);
+UV_EXTERN void uv_print_active_handles(uv_loop_t* loop, FILE* stream);
 
 UV_EXTERN void uv_close(uv_handle_t* handle, uv_close_cb close_cb);
 
@@ -1363,7 +1368,7 @@ UV_EXTERN int uv_chdir(const char* dir);
 UV_EXTERN uint64_t uv_get_free_memory(void);
 UV_EXTERN uint64_t uv_get_total_memory(void);
 
-UV_EXTERN extern uint64_t uv_hrtime(void);
+UV_EXTERN uint64_t uv_hrtime(void);
 
 UV_EXTERN void uv_disable_stdio_inheritance(void);
 

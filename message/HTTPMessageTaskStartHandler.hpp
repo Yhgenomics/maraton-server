@@ -4,6 +4,7 @@
 #include "HTTPMessageTaskStart.hpp"
 #include "TaskManager.h"
 #include "ExecutorManager.h"
+#include "MRT.h"
 
 namespace Protocol
 {
@@ -12,8 +13,8 @@ namespace Protocol
         // UserDefineHandler Begin
         // Your Codes here!
 
-        DEF_UPTR( HTTPMessageResult , result );
-
+        uptr<HTTPMessageResult> result = make_uptr( HTTPMessageResult );
+          
         TaskDescripter* task = new TaskDescripter();
         task->aligner( msg.aligner() );
         task->args( msg.args() );
@@ -26,7 +27,7 @@ namespace Protocol
         result->result( static_cast< int >( err.code() ) );
         result->message( err.message() );
 
-        msg.owner()->send( MOVE(result) );
+        msg.owner()->send_message( move_ptr(result) );
 
         return 0;
 

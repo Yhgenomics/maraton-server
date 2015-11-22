@@ -19,33 +19,32 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\ClusterSession.cpp" />
     <ClCompile Include="..\src\Error.cpp" />
     <ClCompile Include="..\src\Executor.cpp" />
+    <ClCompile Include="..\src\ExecutorListener.cpp" />
     <ClCompile Include="..\src\ExecutorManager.cpp" />
-    <ClCompile Include="..\src\ExecutorNode.cpp" />
+    <ClCompile Include="..\src\ExecutorSession.cpp" />
     <ClCompile Include="..\src\ExecutorTaskDescripter.cpp" />
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\MasterFeature.cpp" />
+    <ClCompile Include="..\src\Message.cpp" />
     <ClCompile Include="..\src\Task.cpp" />
     <ClCompile Include="..\src\TaskDescripter.cpp" />
     <ClCompile Include="..\src\TaskManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\http\HTTPDispatcher.hpp" />
-    <ClInclude Include="..\http\HTTPMessageHandler.hpp" />
-    <ClInclude Include="..\http\HTTPMessageExecutorListHandler.hpp" />
-    <ClInclude Include="..\http\HTTPMessageRootHandler.hpp" />
-    <ClInclude Include="..\http\HTTPMessageTaskListHandler.hpp" />
+    <ClInclude Include="..\include\ClusterSession.h" />
     <ClInclude Include="..\include\Error.h" />
     <ClInclude Include="..\include\Executor.h" />
+    <ClInclude Include="..\include\ExecutorListener.h" />
     <ClInclude Include="..\include\ExecutorManager.h" />
-    <ClInclude Include="..\include\ExecutorNode.h" />
+    <ClInclude Include="..\include\ExecutorSession.h" />
     <ClInclude Include="..\include\ExecutorTaskDescripter.h" />
     <ClInclude Include="..\include\Macros.h" />
     <ClInclude Include="..\include\Manager.hpp" />
     <ClInclude Include="..\include\maraton-server.h" />
     <ClInclude Include="..\include\MaratonMath.hpp" />
-    <ClInclude Include="..\include\MasterFeature.h" />
+    <ClInclude Include="..\include\Message.h" />
     <ClInclude Include="..\include\Task.h" />
     <ClInclude Include="..\include\TaskDescripter.h" />
     <ClInclude Include="..\include\TaskManager.h" />
@@ -190,7 +189,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>maraton-framework.lib;libuv_d.lib;advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;userenv.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>maraton-framework-v3.lib;libuv.lib;advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;userenv.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

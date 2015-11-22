@@ -1,7 +1,7 @@
 #include "ExecutorManager.h"
 #include "Executor.h"
 
-Executor * ExecutorManager::find( ClusterNode * session )
+Executor * ExecutorManager::find( ClusterSession * session )
 {
     return this->find( session->id() );
 }

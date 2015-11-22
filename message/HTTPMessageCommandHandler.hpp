@@ -5,6 +5,7 @@
 #include "ExecutorManager.h"
 #include "HTTPMessageresult.hpp"
 #include "MessageCommand.hpp"
+#include "MRT.h"
 
 namespace Protocol
 {
@@ -13,7 +14,8 @@ namespace Protocol
         // UserDefineHandler Begin
         // Your Codes here!
 
-        DEF_UPTR( HTTPMessageResult , result );
+        uptr<HTTPMessageResult> result = make_uptr( HTTPMessageResult );
+
         result->result( 0 );
 
         std::string ret_data = "";
@@ -45,7 +47,7 @@ namespace Protocol
         }
 
         result->message( ret_data );
-        msg.owner()->send( MOVE( result ) );
+        //msg.owner()->send( MOVE( result ) );
 
         return 0;
 

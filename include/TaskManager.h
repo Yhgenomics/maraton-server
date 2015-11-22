@@ -16,7 +16,7 @@
 #include "Task.h"
 
 class TaskManager :
-    public Singleton<TaskManager> 
+    public MRT::Singleton<TaskManager> 
 {
 public:
 

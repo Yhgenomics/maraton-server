@@ -9,29 +9,25 @@
 
 #include <vector>
 #include <mutex>
+#include <string>
 
-#include "maraton.h"
 #include "ClusterSession.h"
-#include "uv.h"
+#include "MRT.h"
 
 class ExecutorSession :
     public ClusterSession
 {
 public:
 
-    ExecutorSession(uv_tcp_t* conn);
+    ExecutorSession();
     virtual ~ExecutorSession() override;
 
 protected: 
+     
+private: 
+     
+    virtual void on_message( uptr<Message> message ) override;
 
-    void message( Message* message ) override;
-    virtual void shutdown() override;
-
-private:
-
-    std::vector<Buffer> buffers_;
-    std::mutex mtx;
-    
 };
 
 

@@ -23,10 +23,16 @@
     <ClCompile Include="..\src\TaskDescripter.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\MasterFeature.cpp">
+    <ClCompile Include="..\src\ExecutorListener.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ExecutorNode.cpp">
+    <ClCompile Include="..\src\ExecutorSession.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ClusterSession.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Message.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -39,9 +45,6 @@
     </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{d0177160-f59f-4294-a89a-df104ca54213}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="http">
-      <UniqueIdentifier>{5431587c-a7df-429b-8a1a-6efcc8f8579c}</UniqueIdentifier>
     </Filter>
     <Filter Include="task">
       <UniqueIdentifier>{b4197080-de1f-45b2-bb47-5c5426c0f5ce}</UniqueIdentifier>
@@ -56,21 +59,6 @@
     </ClInclude>
     <ClInclude Include="..\include\maraton-server.h">
       <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\http\HTTPMessageHandler.hpp">
-      <Filter>http</Filter>
-    </ClInclude>
-    <ClInclude Include="..\http\HTTPMessageExecutorListHandler.hpp">
-      <Filter>http</Filter>
-    </ClInclude>
-    <ClInclude Include="..\http\HTTPMessageTaskListHandler.hpp">
-      <Filter>http</Filter>
-    </ClInclude>
-    <ClInclude Include="..\http\HTTPDispatcher.hpp">
-      <Filter>http</Filter>
-    </ClInclude>
-    <ClInclude Include="..\http\HTTPMessageRootHandler.hpp">
-      <Filter>http</Filter>
     </ClInclude>
     <ClInclude Include="..\include\TaskManager.h">
       <Filter>include</Filter>
@@ -246,12 +234,6 @@
     <ClInclude Include="..\message\MessageTaskProgressHandler.hpp">
       <Filter>message</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\MasterFeature.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\ExecutorNode.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\MaratonMath.hpp">
       <Filter>include</Filter>
     </ClInclude>
@@ -259,6 +241,18 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Macros.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ExecutorListener.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ExecutorSession.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ClusterSession.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Message.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

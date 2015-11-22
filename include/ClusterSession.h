@@ -1,60 +1,50 @@
+/* * * * * * * * * * * * * * * *
+* YHGenomics Inc.
+* Author     : yang shubo
+* Date       : 2015-11-20
+* Description:
+* * * * * * * * * * * * * * * */
+
 #ifndef CLUSTER_SESSION_H_
 #define CLUSTER_SESSION_H_
 
-#include "maraton.h"
-#include "Session.h"
-#include "Message.h"
-#include <vector>
-#include <functional>
+#include "MRT.h"
+
+class Message;
 
 class ClusterSession :
-    public Session
+    public MRT::Session
 {
 public:
 
-    typedef std::function<void( Message* )> callback_message_t;
-    typedef std::function<void( ClusterSession* )> callback_session_t;
-
-    ClusterSession( uv_tcp_t* conn );
-    virtual ~ClusterSession() override;
-
-    virtual void send( Message* message );
-    virtual void on_message( callback_message_t callback );
-    virtual void on_close( callback_session_t callback);
+    ClusterSession       ( );
+    size_t  id           ( );
+    void    send_message ( uptr<Message> message );
 
 protected:
 
-    virtual void recv( const char* data, int len ) override;
-    virtual void send( const char* data, int len ) override;
-    virtual void message( Message* message ) = 0;
-    virtual void shutdown() override;
-
-    virtual void dispatch_message( Message* message );
-    virtual void dispatch_close();
+    virtual void on_message ( uptr<Message> message ) = 0;
+    virtual void on_connect ( )                        override;
+    void         on_read    ( uptr<MRT::Buffer> data ) override;
+    void         on_write   ( uptr<MRT::Buffer> data ) override;
+    virtual void on_close   ( )                        override;
 
 private:
 
-    enum ES_READSTATE
+    enum MessageParseState
     {
-        FLAG = 0,
-        HEAD,
-        BODY
+        Header = 1,
+        Length ,
+        Body
     };
 
-    ES_READSTATE read_state_ = ES_READSTATE::FLAG;
+    MRT::CircleBuffer   buffer_; 
+    MessageParseState   state_           = MessageParseState::Header;
+    size_t              oringal_size_    = 0;
+    size_t              compressed_size_ = 0;
+    size_t              id_              = -1;
 
-    CircleBuffer circle_buffer_;
-    Zlib compressor_;
-
-    int compressed_length_ = 0;
-    int oringal_length_ = 0;
-
-    bool try_read_flag();
-    bool try_read_head();
-    bool try_read_body();
-
-    std::vector<callback_message_t> callback_list;
-    std::vector<callback_session_t> callback_session_list;
+    void try_pop_message( );
 };
 
 #endif // !CLUSTER_SESSION_H_

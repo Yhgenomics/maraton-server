@@ -10,7 +10,8 @@
 #define PROTOCOL_VERSION "0.0.1"
 
 #include <string.h>
-#include "maraton.h"
+#include "maraton-server.h"
+
 class ClusterSession;
 
 class Message
@@ -31,13 +32,13 @@ public :
 
     virtual ~Message() {};
 
-    virtual Buffer bytes();
+    virtual uptr<MRT::Buffer> bytes();
 
     size_t command() { return this->command_; };
     size_t status() { return this->status_; };
     std::string version() { return this->version_; }
 
-    nlohmann::basic_json<>* data() { return &this->raw_data_; };
+    MRT::basic_json<>* data() { return &this->raw_data_; };
 
     void owner( ClusterSession * session );
     ClusterSession* owner();
@@ -50,7 +51,7 @@ protected:
 
     ClusterSession* owner_ = nullptr;
 
-    nlohmann::json raw_data_;
+    MRT::json raw_data_;
 
 };
 

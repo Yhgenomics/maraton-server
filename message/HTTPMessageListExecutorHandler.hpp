@@ -3,7 +3,7 @@
 
 #include "HTTPMessageListExecutor.hpp"
 #include "ExecutorManager.h"
-#include "json.hpp"
+#include "MRT.h"
 #include "HTTPMessageResult.hpp"
 
 namespace Protocol
@@ -13,16 +13,16 @@ namespace Protocol
         // UserDefineHandler Begin
         // Your Codes here!
 
-        DEF_UPTR( HTTPMessageResult , result );
+        uptr<HTTPMessageResult> result = make_uptr( HTTPMessageResult );
 
         result->result( 0 );
 
         auto list = ExecutorManager::instance()->list();
-        nlohmann::json json;
+        MRT::json json;
 
         for ( auto exe : list )
         {
-            nlohmann::json json_exe;
+            MRT::json json_exe;
             json_exe["id"] = exe->id();
             json_exe["status"] = exe->status();
             json_exe["mem"] = exe->memory_size();
@@ -31,8 +31,10 @@ namespace Protocol
             json_exe["task_id"] = exe->current_task() == nullptr ? "" : exe->current_task()->id();
             json.push_back( json_exe );
         }
+
         result->object( json.dump() );
-        msg.owner()->send( MOVE(result) );
+        
+        msg.owner()->send_message( move_ptr(result) );
 
         return 0;
 

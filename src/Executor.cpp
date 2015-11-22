@@ -8,13 +8,13 @@
 
 using namespace Protocol;
  
-Executor::Executor( ExecutorNode * session )
+Executor::Executor( ExecutorSession * session )
 {
     this->session_ = session;
 
     //say hello to client
-    UPTR<Protocol::MessageGreeting> msg = MAKE_UPTR( Protocol::MessageGreeting );
-    session->send( MOVE(msg) );
+    uptr<Protocol::MessageGreeting> msg = make_uptr( Protocol::MessageGreeting );
+    session->send_message( move_ptr(msg) );
 
     this->refresh();
 }
@@ -24,7 +24,7 @@ Executor::~Executor()
     SAFE_DELETE( this->current_task_ );
 }
 
-void Executor::operator()( ExecutorNode * session )
+void Executor::operator()( ExecutorSession * session )
 {
 }
 
@@ -39,13 +39,13 @@ void Executor::stop_task()
 {
     if ( this->current_task_ == nullptr ) return;
 
-    UPTR<Protocol::MessageTaskCancel> msg = MAKE_UPTR( Protocol::MessageTaskCancel );
+    uptr<Protocol::MessageTaskCancel> msg = make_uptr( Protocol::MessageTaskCancel );
     msg->task_id( this->current_task_->id() );
 
-    this->session()->send( MOVE(msg) );
+    this->session()->send_message( move_ptr(msg) );
 }
 
-ExecutorNode * Executor::session()
+ExecutorSession * Executor::session()
 {
     return this->session_;
 }
@@ -79,12 +79,12 @@ Error Executor::launch_task( ExecutorTaskDescripter* task )
         return err;
     }
 
-    UPTR<MessageTaskDeliver> msg = MAKE_UPTR(MessageTaskDeliver);
-    msg->aligner( task->aligner() );
-    msg->task_id( task->id() );
+    uptr<MessageTaskDeliver> msg = make_uptr(MessageTaskDeliver);
+    msg->aligner ( task->aligner() );
+    msg->task_id ( task->id() );
     msg->uri_list( task->fastq() );
 
-    this->session()->send( MOVE(msg) );
+    this->session()->send_message( move_ptr(msg) );
 
     return err;
 }

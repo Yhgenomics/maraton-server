@@ -1,78 +1,23 @@
-#include "maraton-server.h"
- 
+#include "MRT.h"
+#include "ExecutorListener.h"
+#include "ExecutorManager.h"
+#include "TaskManager.h"
+
 int main(int argc,char** argv)
 {     
-    MasterFeature feature("0.0.0.0");
-    Server::run();
+    while(true)
+    {
+        MRT::SyncWorker::create( 1 , [ ] ( MRT::SyncWorker* worker )
+        { 
+            ExecutorManager::instance( )->run( );
+            TaskManager::instance( )->run( );
 
- //   SessionManager<ExecutorSession>::instance()->on_create( 
- //       [] (ExecutorSession* session) {
+            return false;
+        } , nullptr, nullptr );
 
- //           //=======================================
- //           session->on_message([] (Message* msg) {
- //              
- //               if ( Protocol::MessagesHandler::process( msg ) < 0 )
- //               {
- //                   msg->owner()->close();
- //               }
-
- //           } );
-
- //           //=======================================
- //           session->on_close( [] (ClusterSession* session) 
- //           { 
- //               auto executor = ExecutorManager::instance()->find( session );
- //               ExecutorManager::instance()->pop( executor );
- //               Logger::sys( "TCPSession %d closed", session->id() );
- //           } );
-
- //           auto executor = new Executor( session );
- //           ExecutorManager::instance()->push( executor );
-
- //           Logger::sys( "TCPSession %d connected", session->id() );
- //       }
- //   );
-
- //   SessionManager<RESTSession>::instance()->on_create(
- //       [] ( RESTSession* session ) {
-
-	//		session->on_message( [] ( Message* msg ) 
- //           {
- //               
- //               if ( Protocol::MessagesHandler::process( msg ) < 0 )
- //               {
- //                   Protocol::HTTPMessageResult result;
- //                   result.result( 1 );
- //                   result.message( "failed" );
- //                   msg->owner()->send( &result );
- //               }
- //               
- //               msg->owner()->close();
- //           } );
-
- //           session->on_close( [] ( ClusterSession* session ) {
- //           } ); 
- //   });
-
- //   UVSockService srv;
- //   srv.listen( "0.0.0.0", SESSIONTYPE::RESTAPI );
- //   srv.listen( "0.0.0.0", SESSIONTYPE::EXECUTOR );
-
- //   uv_timer_t timer;
- //   uv_timer_init( uv_default_loop(), &timer );
- //   uv_timer_start( &timer, timer_callback , 0, 1 );
-
-	//while (true)
-	//{
-	//	try
-	//	{
-	//		srv.run();
-	//	}
-	//	catch (exception ee)
-	//	{
-
-	//	}
-	//}
-
+        MRT::Maraton::instance( )->regist(
+            make_uptr( ExecutorListener , "localhost" ) );
+        MRT::Maraton::instance( )->loop( );
+    }
     return 0;
 }
