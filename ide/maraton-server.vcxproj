@@ -50,6 +50,7 @@
     <ClInclude Include="..\include\TaskDescripter.h" />
     <ClInclude Include="..\include\TaskManager.h" />
     <ClInclude Include="..\include\WebSubscriber.h" />
+    <ClInclude Include="..\include\WebSubscriberPathDefine.h" />
     <ClInclude Include="..\inc\RESTAPIListener.h" />
     <ClInclude Include="..\inc\RESTAPISession.h" />
     <ClInclude Include="..\message\HTTPMessageCommand.hpp" />

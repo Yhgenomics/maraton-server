@@ -2,6 +2,7 @@
 #include "ExecutorManager.h"
 #include "MaratonMath.hpp"
 #include "ExecutorTaskDescripter.h"
+#include "WebSubscriber.h"
 
 Task::Task( TaskDescripter * descripter )
 {
@@ -31,10 +32,15 @@ void Task::finish( Executor * executor )
         }
     }
 
+    // If all the tasks are done,
+    // then notify the web server
     if ( 0 == this->executor_running_list_.size() )
     {
         this->cast_time_    = Timer::tick() - this->start_time_;
         this->status_       = TaskStatus::kMerging;
+        WebSubscriber::instance( )->task_done( this->descripter_->id( ) ,
+                                               this->start_time_ ,
+                                               this->cast_time_);
     }
 }
 
@@ -53,7 +59,7 @@ Error Task::launch()
     std::vector<Executor*> executors = executor_running_list_;
     size_t sum_score = 0;
 
-    // check if all executors are standby
+    // Check if all executors are standby statuses
     for ( auto executor : executors )
     {
         if ( executor->status() != Executor::ExecutorStatus::kStandby )
@@ -65,6 +71,7 @@ Error Task::launch()
         }
     }
 
+    // Calculate the total score
     for ( auto executor_id : this->descripter()->executor() )
     {
         auto executor = ExecutorManager::instance()->find( executor_id );
@@ -74,6 +81,7 @@ Error Task::launch()
         sum_score += executor->ability();
     }
 
+    // According to the score, assign the task to the executor
     size_t exe_count    = executors.size();
     size_t fastq_count  = this->descripter()->fastq().size();
 
@@ -111,6 +119,7 @@ Error Task::launch()
         }
     }
 
+    // Check the error and update the status
     if ( 0 == error.code() )
     {
         this->start_time_ = Timer::tick();

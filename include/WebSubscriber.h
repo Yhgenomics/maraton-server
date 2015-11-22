@@ -27,7 +27,12 @@ public:
         return inst;
     }
 
-    void task_result( std::string task_id , size_t status );
+    void task_result( std::string task_id , 
+                      size_t status );
+    void task_done  ( std::string task_id ,  
+                      size_t start_time , 
+                      size_t cast_time );
+    void task_stop  ( std::string task_id );
 
 private:
 

@@ -32,15 +32,15 @@ void RestAPISession::send_message( uptr<Message> message )
 void RestAPISession::response_404( )
 {
     MRT::HTTPResponse rep;
-    rep.status( 404 );
+    rep.status( 200 );
     rep.header( "Server" , WEB_SERVER_NAME );
     rep.header( "Connection" , "Close" );
-
+    rep.content( make_uptr(MRT::Buffer , "<html><body><h1>Welcome to Maraton Server</h1></body></html>" ));
     auto head = rep.build_header( );
-    //auto body = rep.build_body( );
+    auto body = rep.build_body( );
 
     this->send( move_ptr( head ) );
-    //this->send( move_ptr( body ) );
+    this->send( move_ptr( body ) );
 
     this->close( );
 }

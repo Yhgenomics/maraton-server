@@ -9,9 +9,7 @@ int main(int argc,char** argv)
 {     
     while(true)
     {
-        WebSubscriber::instance( )->task_result( "taskId" , 100 );
-
-
+        //WebSubscriber::instance( )->task_result( "taskId" , 100 );
         MRT::SyncWorker::create( 1 , [ ] ( MRT::SyncWorker* worker )
         { 
             ExecutorManager::instance( )->run( );

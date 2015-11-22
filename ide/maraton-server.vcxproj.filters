@@ -267,5 +267,8 @@
     <ClInclude Include="..\include\WebSubscriber.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\WebSubscriberPathDefine.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
