@@ -41,6 +41,9 @@
     <ClCompile Include="..\src\RESTAPISession.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\WebSubscriber.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -259,6 +262,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\RESTAPISession.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\WebSubscriber.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

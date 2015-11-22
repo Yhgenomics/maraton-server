@@ -14,10 +14,10 @@ void RestAPISession::send_message( uptr<Message> message )
 {
     MRT::HTTPResponse rep;
     rep.status( 200 );
-    rep.header( "Server" , REST_SERVER_NAME );
+    rep.header( "Server" , WEB_SERVER_NAME );
     rep.header( "Connection" , "Close" );
 
-    auto content = message->bytes( );
+    auto content = message->to_bytes( );
     rep.content( move_ptr( content ) );
 
     auto head = rep.build_header( );
@@ -33,7 +33,7 @@ void RestAPISession::response_404( )
 {
     MRT::HTTPResponse rep;
     rep.status( 404 );
-    rep.header( "Server" , REST_SERVER_NAME );
+    rep.header( "Server" , WEB_SERVER_NAME );
     rep.header( "Connection" , "Close" );
 
     auto head = rep.build_header( );

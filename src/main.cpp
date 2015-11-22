@@ -3,11 +3,15 @@
 #include "ExecutorManager.h"
 #include "TaskManager.h"
 #include "RESTAPIListener.h"
+#include "WebSubscriber.h"
 
 int main(int argc,char** argv)
 {     
     while(true)
     {
+        WebSubscriber::instance( )->task_result( "taskId" , 100 );
+
+
         MRT::SyncWorker::create( 1 , [ ] ( MRT::SyncWorker* worker )
         { 
             ExecutorManager::instance( )->run( );

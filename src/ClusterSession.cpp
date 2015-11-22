@@ -18,7 +18,7 @@ void ClusterSession::send_message( uptr<Message> message )
 {
     uptr<MRT::Buffer> header  = make_uptr( MRT::Buffer , "YH" ); 
     uptr<MRT::Buffer> length  = make_uptr( MRT::Buffer , 4 );
-    uptr<MRT::Buffer> body    = message->bytes( );
+    uptr<MRT::Buffer> body    = message->to_bytes( );
 
     short* pshort = (short*)( length->data( ) );
     *pshort = scast<short>( body->size( ) );

@@ -11,6 +11,8 @@
 #include "MRT.h"
 #include "ClusterSession.h"
 
+class Message;
+
 class RestAPISession : 
     public ClusterSession
 {

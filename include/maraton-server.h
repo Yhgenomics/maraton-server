@@ -11,11 +11,13 @@
 #include <stdio.h> 
 #include "MRT.h"
 
-#define EXECUTOR_TIMEOUT 999999999
-#define LISTEN_PORT      4455
-#define RESTAPI_PORT     8080
+#define EXECUTOR_TIMEOUT    999999999
+#define LISTEN_PORT         4455
+#define RESTAPI_PORT        8080
 
-#define REST_SERVER_NAME "YHGenomics/Maraton"
+#define WEB_SERVER_NAME     "YHGenomics/Maraton"
+
+#define CONF_KEY_CALLBACK   "callback"
  
 #endif // !MARATON_SERVER_H_ 
 

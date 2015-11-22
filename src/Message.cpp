@@ -67,7 +67,7 @@ Message & Message::operator=( Message && message )
     return *this;
 }
 
-uptr<NS::Buffer> Message::bytes()
+uptr<NS::Buffer> Message::to_bytes()
 {
     auto result = make_uptr( MRT::Buffer );
     std::string json = this->raw_data_.dump();
@@ -76,6 +76,11 @@ uptr<NS::Buffer> Message::bytes()
     return result;
 }
 
+std::string Message::to_string( )
+{
+    return this->raw_data_.dump( );
+}
+ 
 void Message::owner( ClusterSession * session )
 {
     this->owner_ = session;
