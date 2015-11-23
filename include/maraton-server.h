@@ -12,7 +12,7 @@
 #include "MRT.h"
 
 #define EXECUTOR_TIMEOUT    999999999
-#define LISTEN_PORT         4455
+#define LISTEN_PORT         90
 #define RESTAPI_PORT        8080
 
 #define WEB_SERVER_NAME         "YHGenomics/Maraton"

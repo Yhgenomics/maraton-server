@@ -19,9 +19,9 @@ int main(int argc,char** argv)
         } , nullptr, nullptr );
 
         MRT::Maraton::instance( )->regist(
-            make_uptr( ExecutorListener , "localhost" ) );
+            make_uptr( ExecutorListener , "0.0.0.0" ) );
         MRT::Maraton::instance( )->regist(
-            make_uptr( RestAPIListener , "localhost" ) );
+            make_uptr( RestAPIListener , "0.0.0.0" ) );
         MRT::Maraton::instance( )->loop( );
     }
     return 0;

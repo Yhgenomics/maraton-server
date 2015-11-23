@@ -30,5 +30,4 @@ private:
 
 };
 
-
 #endif //EXECUTOR_SESSION_H_ 
