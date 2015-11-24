@@ -270,5 +270,11 @@
     <ClInclude Include="..\include\WebSubscriberPathDefine.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\message\MessageConfig.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageConfigHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

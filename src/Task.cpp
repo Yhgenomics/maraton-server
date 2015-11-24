@@ -32,8 +32,8 @@ void Task::finish( Executor * executor )
         }
     }
 
-    // If all the tasks are done,
-    // then notify the web server
+    //  Notify the web server
+    //  when all the tasks are done,
     if ( 0 == this->executor_running_list_.size() )
     {
         this->cast_time_    = Timer::tick() - this->start_time_;

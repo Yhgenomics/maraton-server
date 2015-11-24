@@ -16,9 +16,9 @@ namespace Protocol
         if ( exe == nullptr )
             return -1;
 
-        exe->status( static_cast< Executor::ExecutorStatus >( msg.reports() ) );
+        exe->status( static_cast< Executor::ExecutorStatus >( msg.reports( ) ) );
 
-        Logger::sys( "[%s] changed status to %ld " , exe->id().c_str() , msg.reports() );
+        LOG_DEBUG( "%lld changed status to %ld " , exe->session( )->id( ) , msg.reports( ) );
 
         return 0;
         // UserDefineHandler End 

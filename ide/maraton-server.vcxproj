@@ -71,6 +71,8 @@
     <ClInclude Include="..\message\MessageAbilityQueryHandler.hpp" />
     <ClInclude Include="..\message\MessageCommand.hpp" />
     <ClInclude Include="..\message\MessageCommandHandler.hpp" />
+    <ClInclude Include="..\message\MessageConfig.hpp" />
+    <ClInclude Include="..\message\MessageConfigHandler.hpp" />
     <ClInclude Include="..\message\MessageExceptionReport.hpp" />
     <ClInclude Include="..\message\MessageExceptionReportHandler.hpp" />
     <ClInclude Include="..\message\MessageGreeting.hpp" />

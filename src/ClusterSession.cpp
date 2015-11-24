@@ -28,6 +28,8 @@ void ClusterSession::send_message( uptr<Message> message )
     this->send( move_ptr( header ) );
     this->send( move_ptr( length ) );
     this->send( move_ptr( body ) );
+
+    LOG_DEBUG( "send to %lld message %lld" , this->id( ) , message->command( ) );
 }
 
 void ClusterSession::on_connect( )

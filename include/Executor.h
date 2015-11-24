@@ -42,7 +42,6 @@ public:
     ~Executor();
 
     //operator
-    void                        operator()( ExecutorSession * session );
     
     //func
     void                        run();
