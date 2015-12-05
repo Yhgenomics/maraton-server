@@ -32,7 +32,9 @@ public:
     void task_done  ( std::string task_id ,  
                       size_t start_time , 
                       size_t cast_time );
-    void task_stop  ( std::string task_id );
+    void task_fail  ( std::string task_id , size_t error_code);
+    void task_stop  ( std::string task_id , size_t error_code);
+    void task_start ( std::string task_id );
 
 private:
 

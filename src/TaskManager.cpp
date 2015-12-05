@@ -18,6 +18,7 @@ Error TaskManager::launch( TaskDescripter* task )
         if ( executor == nullptr ) continue;
 
         t->add_executor( executor );
+
     }
 
     this->task_list_.insert( task_list_ .begin() , t );

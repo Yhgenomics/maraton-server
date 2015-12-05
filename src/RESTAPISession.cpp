@@ -35,7 +35,13 @@ void RestAPISession::response_404( )
     rep.status( 200 );
     rep.header( "Server" , WEB_SERVER_NAME );
     rep.header( "Connection" , "Close" );
-    rep.content( make_uptr(MRT::Buffer , "<html><body><h1>Welcome to Maraton Server</h1></body></html>" ));
+
+
+    Protocol::HTTPMessageResult result;
+    result.result( 1 );
+    result.message( "404 Not Found" );
+
+    rep.content( make_uptr( MRT::Buffer , result.to_string( ) ) );
     auto head = rep.build_header( );
     auto body = rep.build_body( );
 
@@ -82,19 +88,21 @@ void RestAPISession::try_handle_message( )
 
     if ( body == nullptr )
     {
-        this->response_404( );
         return;
     }
 
-    try
+    size_t bodylen = body->size( );
+    if ( body->size( ) == req.content_length( ) )
     {
-         uptr<Message> msg = make_uptr( Message , std::string( body->data( ) , body->size( ) ) );
-         msg->owner( this );
-         this->on_message( move_ptr( msg ) );
+        try
+        { 
+            uptr<Message> msg = make_uptr( Message , std::string( body->data( ) , body->size( ) ) );
+            msg->owner( this );
+            this->on_message( move_ptr( msg ) );
+        }
+        catch ( ... )
+        {
+            this->response_404( );
+        }
     }
-    catch(...)
-    {
-        this->response_404( );
-    }
-   
 }

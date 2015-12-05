@@ -8,6 +8,7 @@ Task::Task( TaskDescripter * descripter )
 {
     this->descripter_ = descripter;
     this->create_time_ = Timer::tick();
+    WebSubscriber::instance( )->task_start( this->descripter_->id( ) );
 }
 
 Task::~Task()
@@ -32,8 +33,8 @@ void Task::finish( Executor * executor )
         }
     }
 
-    //  Notify the web server
-    //  when all the tasks are done,
+    // Notify the web server
+    // when all executors finish the task,
     if ( 0 == this->executor_running_list_.size() )
     {
         this->cast_time_    = Timer::tick() - this->start_time_;
@@ -41,6 +42,14 @@ void Task::finish( Executor * executor )
         WebSubscriber::instance( )->task_done( this->descripter_->id( ) ,
                                                this->start_time_ ,
                                                this->cast_time_);
+    }
+}
+
+void Task::fail( size_t error_code )
+{
+    for ( auto exe : executor_list_ )
+    {
+        exe->stop_task( );
     }
 }
 
@@ -59,13 +68,13 @@ Error Task::launch()
     std::vector<Executor*> executors = executor_running_list_;
     size_t sum_score = 0;
 
-    // Check if all executors are standby statuses
+    // Check if all executors are in standby status
     for ( auto executor : executors )
     {
         if ( executor->status() != Executor::ExecutorStatus::kStandby )
         {
             error.code( 1 );
-            error.message( executor->id() + ": not ready" );
+            error.message( executor->id() + " not standby" );
             this->status_ = TaskStatus::kError;
             return error;
         }
@@ -81,7 +90,8 @@ Error Task::launch()
         sum_score += executor->ability();
     }
 
-    // According to the score, assign the task to the executor
+    // According to the score, 
+    // assign the task to the executor
     size_t exe_count    = executors.size();
     size_t fastq_count  = this->descripter()->fastq().size();
 

@@ -14,7 +14,7 @@ void WebSubscriber::post_data( std::string url , std::string data )
 {
     auto web_cli    = this->create_web_client( );
     auto host       = MRT::Configuration::instance( )->get( CONF_KEY_WEBSUBSCRIBER );
-     
+
     if ( host.empty( ) )
     {
         return;
@@ -52,7 +52,7 @@ void WebSubscriber::task_result( std::string task_id , size_t status )
 }
 
 void WebSubscriber::task_done( std::string task_id ,
-                               size_t start_time , 
+                               size_t start_time ,
                                size_t cast_time )
 {
     std::string url = WS_TASK_DONE;
@@ -62,5 +62,34 @@ void WebSubscriber::task_done( std::string task_id ,
     j["start_time"] = start_time;
     j["time_cast"]  = cast_time;
 
+    this->post_data( url , j.dump( ) );
+}
+
+void WebSubscriber::task_fail( std::string task_id , size_t error_code )
+{
+    std::string url = WS_TASK_FAIL;
+
+    MRT::json j;
+    j["task_id"]    = task_id;
+    j["error_code"] = error_code;
+    this->post_data( url , j.dump( ) );
+}
+
+void WebSubscriber::task_stop( std::string task_id , size_t error_code )
+{
+    std::string url = WS_TASK_STOP;
+
+    MRT::json j;
+    j["task_id"]    = task_id;
+    j["error_code"] = error_code;
+    this->post_data( url , j.dump( ) );
+}
+
+void WebSubscriber::task_start( std::string task_id )
+{
+    std::string url = WS_TASK_START;
+
+    MRT::json j;
+    j["task_id"]    = task_id;
     this->post_data( url , j.dump( ) );
 }

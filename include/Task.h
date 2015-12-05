@@ -35,6 +35,7 @@ public:
 
     void                   add_executor( Executor* executor );
     void                   finish( Executor* executor );
+    void                   fail( size_t error_code );
     void                   stop();
 
     TaskDescripter*        descripter() { return this->descripter_; };

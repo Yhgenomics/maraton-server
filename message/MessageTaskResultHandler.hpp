@@ -34,6 +34,9 @@ namespace Protocol
                 }
                 break;
             default:
+                {
+                     task->fail( msg.error( ) );
+                }
                 break;
         }
 
