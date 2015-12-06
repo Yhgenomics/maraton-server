@@ -8,7 +8,6 @@ Task::Task( TaskDescripter * descripter )
 {
     this->descripter_ = descripter;
     this->create_time_ = Timer::tick();
-    WebSubscriber::instance( )->task_start( this->descripter_->id( ) );
 }
 
 Task::~Task()
@@ -51,6 +50,9 @@ void Task::fail( size_t error_code )
     {
         exe->stop_task( );
     }
+
+    WebSubscriber::instance( )->task_fail( this->descripter_->id( ) ,
+                                           error_code);
 }
 
 Error Task::launch()
@@ -139,6 +141,8 @@ Error Task::launch()
     {
         this->status_ = TaskStatus::kError;
     }
+
+    WebSubscriber::instance( )->task_start( this->descripter_->id( ) );
 
     return error;
 }
