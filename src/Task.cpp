@@ -17,38 +17,69 @@ Task::~Task()
 
 void Task::add_executor( Executor * executor )
 {
+    executor_map_[executor->id( )] = TaskStatus::kPending;
     executor_list_.push_back( executor );
-    executor_running_list_.push_back( executor );
+    //executor_running_list_.push_back( executor );
 }
 
 void Task::finish( Executor * executor )
 {
-    for ( auto itr = executor_running_list_.begin(); itr != executor_running_list_.end(); itr++ )
+    bool isFinished = true;
+
+    executor_map_[executor->id( )] = TaskStatus::kFinished;
+   
+    // Notify the web server
+    // when all executors finish the task,
+    for ( auto & kv : executor_map_ )
     {
-        if ( *itr == executor )
+        if ( kv.second != TaskStatus::kFinished )
         {
-            executor_running_list_.erase( itr );
+            isFinished = false;
             break;
         }
     }
 
-    // Notify the web server
-    // when all executors finish the task,
-    if ( 0 == this->executor_running_list_.size() )
+    if ( isFinished )
     {
-        this->cast_time_    = Timer::tick() - this->start_time_;
-        this->status_       = TaskStatus::kMerging;
-        WebSubscriber::instance( )->task_done( this->descripter_->id( ) ,
-                                               this->start_time_ ,
-                                               this->cast_time_);
+        this->status_ = TaskStatus::kMerging;
+        Executor* niubility_exe = nullptr;
+
+        for ( auto & exe : executor_list_ )
+        {
+            if ( niubility_exe == nullptr )
+            {
+                niubility_exe = exe;
+            }
+            else if ( niubility_exe->ability( ) < exe->ability( ) )
+            {
+                niubility_exe = exe;
+            }
+        }
+
+        if ( niubility_exe != nullptr )
+        {
+            // TODO:
+            // Send merge command to the highest score node
+                    
+        }
     }
+}
+
+void Task::merge_finish( Executor * executor )
+{
+    this->cast_time_ = Timer::tick() - this->start_time_;
+    WebSubscriber::instance( )->task_done( this->descripter_->id( ) ,
+                                           this->start_time_ ,
+                                           this->cast_time_);
+    this->status_       = TaskStatus::kFinished;
 }
 
 void Task::fail( size_t error_code )
 {
-    for ( auto exe : executor_list_ )
+    for ( auto & exe : executor_list_ )
     {
         exe->stop_task( );
+        this->executor_map_[exe->id( )] = TaskStatus::kError;
     }
 
     WebSubscriber::instance( )->task_fail( this->descripter_->id( ) ,
@@ -59,15 +90,36 @@ Error Task::launch()
 { 
     Error error(0,"");
 
+    if ( this->status_ != TaskStatus::kFinished ||
+         this->status_ != TaskStatus::kPending )
+    {
+        error.code( 1 );
+        error.message( "task is not ready" );
+        this->status_ = TaskStatus::kError;
+        
+        for ( auto executor : executor_list_ )
+        {
+            this->executor_map_[executor->id( )] = TaskStatus::kError;
+        }
+
+        return error;
+    }
+
     if ( this->descripter_ == nullptr )
     {
         error.code( 1 );
         error.message( "descripter is null" );
         this->status_ = TaskStatus::kError;
+
+        for ( auto executor : executor_list_ )
+        {
+            this->executor_map_[executor->id( )] = TaskStatus::kError;
+        }
+
         return error;
     }
 
-    std::vector<Executor*> executors = executor_running_list_;
+    std::vector<Executor*> executors = executor_list_;
     size_t sum_score = 0;
 
     // Check if all executors are in standby status
@@ -78,8 +130,11 @@ Error Task::launch()
             error.code( 1 );
             error.message( executor->id() + " not standby" );
             this->status_ = TaskStatus::kError;
-            return error;
+            this->executor_map_[executor->id( )] = TaskStatus::kError;
         }
+
+        if ( this->status_ == TaskStatus::kError )
+            return error;
     }
 
     // Calculate the total score
@@ -119,32 +174,56 @@ Error Task::launch()
             this->descripter() , 
             exe_fastq_list 
         );
-       
+
         auto executor_err = executor->launch_task( executor_task_des );
 
         if ( executor_err.code() > 0)
         {
+            this->status_ = TaskStatus::kError;
             error.code( executor_err.code() );
             error.message( executor_err.message() );
             SAFE_DELETE( executor_task_des );
             break;
         }
+
+        this->executor_map_[executor->id( )] = TaskStatus::kRunning;
     }
 
     // Check the error and update the status
     if ( 0 == error.code() )
     {
-        this->start_time_ = Timer::tick();
-        this->status_ = TaskStatus::kRunning;
+        this->start_time_   = Timer::tick();
+        this->status_       = TaskStatus::kRunning;
+        WebSubscriber::instance( )->task_start( this->descripter_->id( ) );
     }
     else
     {
         this->status_ = TaskStatus::kError;
+        WebSubscriber::instance( )->task_fail( this->descripter_->id( ) , error.code( ) );
     }
 
-    WebSubscriber::instance( )->task_start( this->descripter_->id( ) );
-
     return error;
+}
+
+void Task::update_progress( )
+{
+    size_t progress = 0;
+    for ( auto & v : this->executor_list_ )
+    {
+        progress += ( v->progress( ) / this->executor_list_.size( ) );
+    }
+
+    this->progress_ = ( progress );
+}
+
+void Task::update_executor_status( Executor * executor , TaskStatus status )
+{
+    if ( executor == nullptr )
+    {
+        return;
+    }
+
+    this->executor_map_[executor->id( )] = status;
 }
 
 void Task::stop()
@@ -153,6 +232,7 @@ void Task::stop()
     {
         auto exe = *itr;
         exe->stop_task();
+        this->executor_map_[exe->id( )] = TaskStatus::kStopped;
     }
 
     this->status_ = TaskStatus::kStopped;

@@ -79,7 +79,7 @@ Error Executor::launch_task( ExecutorTaskDescripter* task )
     msg->aligner ( task->aligner( ) );
     msg->task_id ( task->id( ) );
     msg->uri_list( task->fastq( ) );
-    msg->reference ( "hg19.fa" );
+    msg->reference ( task->reference( ) );
 
     this->session( )->send_message( move_ptr( msg ) );
 

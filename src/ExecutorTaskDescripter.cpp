@@ -10,4 +10,5 @@ ExecutorTaskDescripter::ExecutorTaskDescripter( TaskDescripter * descripter , st
     this->args( descripter->args() );
     this->aligner( descripter->aligner() );
     this->fastq( fastq );
+    this->reference( descripter->reference( ) );
 }

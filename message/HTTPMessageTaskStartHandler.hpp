@@ -21,6 +21,7 @@ namespace Protocol
         task->fastq( msg.fastq() );
         task->id( msg.id() );
         task->executor( msg.executor() );
+        task->reference( "hg19.fa" );
 
         auto err = TaskManager::instance()->launch( task );
        

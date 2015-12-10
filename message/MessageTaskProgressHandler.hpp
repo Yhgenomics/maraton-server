@@ -23,6 +23,7 @@ namespace Protocol
         }
 
         executor->progress( msg.progress() );
+        task->update_progress( );
         Logger::sys( "%s progress %lld" , taskid.c_str() , msg.progress() );
 
         return 0;

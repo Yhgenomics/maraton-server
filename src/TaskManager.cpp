@@ -11,14 +11,13 @@ Error TaskManager::launch( TaskDescripter* task )
     Task* t = new Task( task );
     t->status( Task::TaskStatus::kPending );
 
-    for ( auto executor_id : task->executor() )
+    for ( auto & executor_id : task->executor() )
     {
         auto executor = ExecutorManager::instance()->find( executor_id );
 
         if ( executor == nullptr ) continue;
 
         t->add_executor( executor );
-
     }
 
     this->task_list_.insert( task_list_ .begin() , t );
@@ -28,7 +27,7 @@ Error TaskManager::launch( TaskDescripter* task )
 
 Task* TaskManager::find( std::string task_id )
 { 
-    for ( auto t : this->task_list_ )
+    for ( auto & t : this->task_list_ )
     {
         
         if ( t->descripter()->id() == task_id )

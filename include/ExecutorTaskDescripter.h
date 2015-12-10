@@ -25,12 +25,15 @@ public:
     PP_DEF( std::vector<std::string> , args )
     PP_DEF( std::vector<std::string> , fastq )
     PP_DEF( std::string, id)
+    PP_DEF( std::string, reference )
+
 private:
 
     std::string                 id_;
     std::string                 aligner_;
     std::vector<std::string>    args_;
     std::vector<std::string>    fastq_;
+    std::string                 reference_;
 };
 
 #endif // !EXECUTOR_TASK_DESCRIPTER_H_ 

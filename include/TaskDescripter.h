@@ -40,6 +40,7 @@ public:
         this->fastq_    = ins.fastq_;
         this->executor_ = ins.executor_;
         this->args_     = ins.args_;
+        this->reference_= ins.reference_;
     }
 
     TaskDescripter& operator=( const TaskDescripter& task )
@@ -50,6 +51,7 @@ public:
         this->fastq_    = task.fastq_;
         this->executor_ = task.executor_;
         this->args_     = task.args_;
+        this->reference_= task.reference_;
         return *this;
     }
 
@@ -61,6 +63,7 @@ public:
     PP_DEF( std::vector<std::string> , args )
     PP_DEF( TaskDescripterStatus , status)
     PP_DEF( int , progress )
+    PP_DEF( std::string , reference )
 
 private:
 
@@ -72,6 +75,7 @@ private:
     std::vector<std::string>    args_;
     TaskDescripterStatus        status_ = TaskDescripterStatus::kUnknow;
     int                         progress_ = 0;
+    std::string                 reference_ = "";
 };
 
 #endif // !TASK_HPP_ 
