@@ -71,10 +71,3 @@ void TaskManager::stop( std::string task_id )
         }
     } 
 }
-
-void TaskManager::task_finish( std::string task_id , Executor * executor )
-{
-    auto task = this->find( task_id );
-    task->finish( executor );
-}
-

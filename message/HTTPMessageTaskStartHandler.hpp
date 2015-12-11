@@ -14,14 +14,15 @@ namespace Protocol
         // Your Codes here!
 
         uptr<HTTPMessageResult> result = make_uptr( HTTPMessageResult );
-          
+
         TaskDescripter* task = new TaskDescripter();
         task->aligner( msg.aligner() );
         task->args( msg.args() );
         task->fastq( msg.fastq() );
         task->id( msg.id() );
         task->executor( msg.executor() );
-        task->reference( "hg19.fa" );
+        task->reference( msg.reference( ) );
+        task->sorter( msg.sorter( ) );
 
         auto err = TaskManager::instance()->launch( task );
        

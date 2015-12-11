@@ -10,10 +10,12 @@
 #include "MessageAbilityQueryHandler.hpp"
 #include "MessageAbilityQueryACKHandler.hpp"
 #include "MessageCommandHandler.hpp"
+#include "MessageConfigHandler.hpp"
 #include "MessageExceptionReportHandler.hpp"
 #include "MessageGreetingHandler.hpp"
 #include "MessageHeartBeatHandler.hpp"
 #include "MessageIntroHandler.hpp"
+#include "MessageMergeProcessHandler.hpp"
 #include "MessageResourcesQueryHandler.hpp"
 #include "MessageResourcesQueryACKHandler.hpp"
 #include "MessageStatusReportHandler.hpp"
@@ -71,6 +73,10 @@ namespace Protocol
                     return MessageCommandHandler( MessageCommand( message ) );
                     break;
                 
+                case 170:
+                    return MessageConfigHandler( MessageConfig( message ) );
+                    break;
+                
                 case 151:
                     return MessageExceptionReportHandler( MessageExceptionReport( message ) );
                     break;
@@ -85,6 +91,10 @@ namespace Protocol
                 
                 case 92:
                     return MessageIntroHandler( MessageIntro( message ) );
+                    break;
+                
+                case 171:
+                    return MessageMergeProcessHandler( MessageMergeProcess( message ) );
                     break;
                 
                 case 111:

@@ -22,7 +22,6 @@ public:
 
     void                            run();
     void                            stop( std::string task_id );
-    void                            task_finish( std::string task_id , Executor* executor );
 
     Error                           launch( TaskDescripter* task );
     std::string                     error() { return error_; };

@@ -276,5 +276,11 @@
     <ClInclude Include="..\message\MessageConfigHandler.hpp">
       <Filter>message</Filter>
     </ClInclude>
+    <ClInclude Include="..\message\MessageMergeProcess.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageMergeProcessHandler.hpp">
+      <Filter>message</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

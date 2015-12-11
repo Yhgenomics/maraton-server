@@ -3,6 +3,7 @@
 #include "MaratonMath.hpp"
 #include "ExecutorTaskDescripter.h"
 #include "WebSubscriber.h"
+#include "MessageMergeProcess.hpp"
 
 Task::Task( TaskDescripter * descripter )
 {
@@ -19,17 +20,25 @@ void Task::add_executor( Executor * executor )
 {
     executor_map_[executor->id( )] = TaskStatus::kPending;
     executor_list_.push_back( executor );
-    //executor_running_list_.push_back( executor );
+
+    if ( merger_ == nullptr )
+    {
+        merger_ = executor;
+    }
+    else if ( executor->ability( ) > merger_->ability( ) )
+    {
+        merger_ = executor;
+    }
 }
 
-void Task::finish( Executor * executor )
+void Task::alignment_finish( Executor * executor )
 {
     bool isFinished = true;
 
     executor_map_[executor->id( )] = TaskStatus::kFinished;
-   
+    
     // Notify the web server
-    // when all executors finish the task,
+    // when all executors finish the task
     for ( auto & kv : executor_map_ )
     {
         if ( kv.second != TaskStatus::kFinished )
@@ -41,36 +50,47 @@ void Task::finish( Executor * executor )
 
     if ( isFinished )
     {
-        this->status_ = TaskStatus::kMerging;
-        Executor* niubility_exe = nullptr;
+        this->status( TaskStatus::kMerging );
 
-        for ( auto & exe : executor_list_ )
+        if ( merger_ != nullptr )
         {
-            if ( niubility_exe == nullptr )
-            {
-                niubility_exe = exe;
-            }
-            else if ( niubility_exe->ability( ) < exe->ability( ) )
-            {
-                niubility_exe = exe;
-            }
+            uptr<Protocol::MessageMergeProcess> merge = make_uptr( Protocol::MessageMergeProcess );
+            merge->task_id( this->descripter_->id( ) );
+            merge->merger( "10.0.0.15:5000/smmerge" );
+            merge->uri_list ( this->descripter_->fastq( ) );
+            merger_->session( )->send_message( move_ptr( merge ) );
         }
-
-        if ( niubility_exe != nullptr )
+        else
         {
-            // TODO:
-            // Send merge command to the highest score node
-                    
+            this->status( TaskStatus::kError );
         }
     }
 }
 
-void Task::merge_finish( Executor * executor )
+void Task::merge_finish( const size_t status )
 {
+    // Fail
+    if ( status != 0 )
+    {
+        WebSubscriber::instance( )->task_fail( this->descripter_->id( ) ,
+                                               status);
+        return;
+    }
+
+    // Success
     this->cast_time_ = Timer::tick() - this->start_time_;
+
     WebSubscriber::instance( )->task_done( this->descripter_->id( ) ,
                                            this->start_time_ ,
                                            this->cast_time_);
+
+
+    for ( auto & exe : executor_list_ )
+    {
+        this->executor_map_[exe->id( )] = TaskStatus::kFinished;
+        exe->current_task ( nullptr );
+    }
+
     this->status_       = TaskStatus::kFinished;
 }
 
@@ -95,7 +115,7 @@ Error Task::launch()
     {
         error.code( 1 );
         error.message( "task is not ready" );
-        this->status_ = TaskStatus::kError;
+        this->status( TaskStatus::kError );
         
         for ( auto executor : executor_list_ )
         {
@@ -109,7 +129,7 @@ Error Task::launch()
     {
         error.code( 1 );
         error.message( "descripter is null" );
-        this->status_ = TaskStatus::kError;
+        this->status( TaskStatus::kError );
 
         for ( auto executor : executor_list_ )
         {
@@ -129,7 +149,7 @@ Error Task::launch()
         {
             error.code( 1 );
             error.message( executor->id() + " not standby" );
-            this->status_ = TaskStatus::kError;
+            this->status( TaskStatus::kError );
             this->executor_map_[executor->id( )] = TaskStatus::kError;
         }
 
@@ -179,7 +199,7 @@ Error Task::launch()
 
         if ( executor_err.code() > 0)
         {
-            this->status_ = TaskStatus::kError;
+            this->status( TaskStatus::kError );
             error.code( executor_err.code() );
             error.message( executor_err.message() );
             SAFE_DELETE( executor_task_des );
@@ -193,12 +213,12 @@ Error Task::launch()
     if ( 0 == error.code() )
     {
         this->start_time_   = Timer::tick();
-        this->status_       = TaskStatus::kRunning;
+        this->status( TaskStatus::kRunning );
         WebSubscriber::instance( )->task_start( this->descripter_->id( ) );
     }
     else
     {
-        this->status_ = TaskStatus::kError;
+        this->status( TaskStatus::kError );
         WebSubscriber::instance( )->task_fail( this->descripter_->id( ) , error.code( ) );
     }
 
@@ -235,5 +255,5 @@ void Task::stop()
         this->executor_map_[exe->id( )] = TaskStatus::kStopped;
     }
 
-    this->status_ = TaskStatus::kStopped;
+    this->status( TaskStatus::kStopped );
 }

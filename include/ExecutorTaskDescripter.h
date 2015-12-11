@@ -26,6 +26,7 @@ public:
     PP_DEF( std::vector<std::string> , fastq )
     PP_DEF( std::string, id)
     PP_DEF( std::string, reference )
+    PP_DEF( std::string, sorter )
 
 private:
 
@@ -34,6 +35,7 @@ private:
     std::vector<std::string>    args_;
     std::vector<std::string>    fastq_;
     std::string                 reference_;
+    std::string                 sorter_;
 };
 
 #endif // !EXECUTOR_TASK_DESCRIPTER_H_ 

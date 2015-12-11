@@ -81,6 +81,8 @@
     <ClInclude Include="..\message\MessageHeartBeatHandler.hpp" />
     <ClInclude Include="..\message\MessageIntro.hpp" />
     <ClInclude Include="..\message\MessageIntroHandler.hpp" />
+    <ClInclude Include="..\message\MessageMergeProcess.hpp" />
+    <ClInclude Include="..\message\MessageMergeProcessHandler.hpp" />
     <ClInclude Include="..\message\MessageResourcesQuery.hpp" />
     <ClInclude Include="..\message\MessageResourcesQueryACK.hpp" />
     <ClInclude Include="..\message\MessageResourcesQueryACKHandler.hpp" />

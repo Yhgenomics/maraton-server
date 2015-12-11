@@ -36,8 +36,8 @@ public:
     ~Task();
 
     void                   add_executor( Executor* executor );
-    void                   finish( Executor* executor );
-    void                   merge_finish( Executor* executor );
+    void                   alignment_finish( Executor* executor );
+    void                   merge_finish( const size_t status );
     void                   fail( size_t error_code );
     void                   stop();
 
@@ -67,6 +67,7 @@ private:
     size_t                 start_time_              = 0;
     size_t                 cast_time_               = 0;
     size_t                 progress_                = 0; 
+    Executor*              merger_                  = nullptr;
 };
 
 #endif // !TASK_H_ 

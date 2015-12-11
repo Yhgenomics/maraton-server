@@ -90,6 +90,32 @@ namespace Protocol
             raw_data_[ "data" ][ "args" ] = value;
         }
         
+        // Getter of sorter_
+        string sorter()
+        {
+            return sorter_;
+        }
+        
+        // Setter of sorter_
+        void sorter( string value )
+        {
+            sorter_ = value;
+            raw_data_[ "data" ][ "sorter" ] = value;
+        }
+        
+        // Getter of reference_
+        string reference()
+        {
+            return reference_;
+        }
+        
+        // Setter of reference_
+        void reference( string value )
+        {
+            reference_ = value;
+            raw_data_[ "data" ][ "reference" ] = value;
+        }
+        
         // Serilize Constructor
         HTTPMessageTaskStart()
             : Message( PROTOCOL_VERSION , 10000 , 0 )
@@ -100,6 +126,8 @@ namespace Protocol
             executor(  );
             aligner( "" );
             args(  );
+            sorter( "" );
+            reference( "" );
         }
         
         // Deserilize Constructor
@@ -112,6 +140,8 @@ namespace Protocol
             this->executor_ = raw_data_[ "data" ][ "executor" ].get<vector<string>>();
             this->aligner_ = raw_data_[ "data" ][ "aligner" ].get<string>();
             this->args_ = raw_data_[ "data" ][ "args" ].get<vector<string>>();
+            this->sorter_ = raw_data_[ "data" ][ "sorter" ].get<string>();
+            this->reference_ = raw_data_[ "data" ][ "reference" ].get<string>();
         }
     
     private:
@@ -122,6 +152,8 @@ namespace Protocol
         vector<string> executor_;
         string aligner_;
         vector<string> args_;
+        string sorter_;
+        string reference_;
     
     }; // End of class define of HTTPMessageTaskStart
 

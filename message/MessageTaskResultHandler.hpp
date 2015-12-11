@@ -25,12 +25,18 @@ namespace Protocol
             return 0;
         }
 
-        switch ( msg.error( ) )
+        switch ( msg.stage( ) )
         {
-            case 0:
+            // Alignment finish
+            case 1:
                 {
-                    task->finish( exe );
-                    exe->current_task( nullptr );
+                    task->alignment_finish( exe );
+                }
+                break;
+            // Merge finish
+            case 2:
+                {
+                    task->merge_finish( msg.error( ) );
                 }
                 break;
             default:
