@@ -80,7 +80,7 @@ Error Executor::launch_task( ExecutorTaskDescripter* task )
     msg->task_id ( task->id( ) );
     msg->uri_list( task->fastq( ) );
     msg->reference ( task->reference( ) );
-
+    msg->sorter( task->sorter( ) );
     this->session( )->send_message( move_ptr( msg ) );
 
     return err;

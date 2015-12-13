@@ -25,6 +25,12 @@ namespace Protocol
             return 0;
         }
 
+        if ( msg.error( ) != 0 )
+        {
+            task->fail( msg.error( ) );
+            return 0;
+        }
+
         switch ( msg.stage( ) )
         {
             // Alignment finish

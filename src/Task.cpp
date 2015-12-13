@@ -110,7 +110,7 @@ Error Task::launch()
 { 
     Error error(0,"");
 
-    if ( this->status_ != TaskStatus::kFinished ||
+    if ( this->status_ != TaskStatus::kFinished &&
          this->status_ != TaskStatus::kPending )
     {
         error.code( 1 );
