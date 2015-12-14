@@ -79,19 +79,18 @@ void Task::merge_finish( const size_t status )
 
     // Success
     this->cast_time_ = Timer::tick() - this->start_time_;
-
-    WebSubscriber::instance( )->task_done( this->descripter_->id( ) ,
-                                           this->start_time_ ,
-                                           this->cast_time_);
-
-
+     
     for ( auto & exe : executor_list_ )
     {
         this->executor_map_[exe->id( )] = TaskStatus::kFinished;
         exe->current_task ( nullptr );
     }
 
-    this->status_       = TaskStatus::kFinished;
+    this->status( TaskStatus::kFinished );
+
+    WebSubscriber::instance( )->task_done( this->descripter_->id( ) ,
+                                           this->start_time_ ,
+                                           this->cast_time_);
 }
 
 void Task::fail( size_t error_code )
