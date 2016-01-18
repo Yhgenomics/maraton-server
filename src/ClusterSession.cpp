@@ -20,10 +20,10 @@ void ClusterSession::send_message( uptr<Message> message )
     uptr<MRT::Buffer> length  = make_uptr( MRT::Buffer , 4 );
     uptr<MRT::Buffer> body    = message->to_bytes( );
 
-    short* pshort = ( short* ) ( length->data( ) );
-    *pshort = scast<short>( body->size( ) );
-    ++pshort;
-    *pshort = scast<short>( body->size( ) );
+    int* pshort = ( int* ) ( length->data( ) );
+    *pshort = scast<int>( body->size( ) );
+    //++pshort;
+    //*pshort = scast<int>( body->size( ) );
 
     this->send( move_ptr( header ) );
     this->send( move_ptr( length ) );
