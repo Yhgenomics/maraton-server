@@ -56,7 +56,7 @@ void Task::alignment_finish( Executor * executor )
         {
             uptr<Protocol::MessageMergeProcess> merge = make_uptr( Protocol::MessageMergeProcess );
             merge->task_id( this->descripter_->id( ) );
-            merge->merger( "10.0.0.15:5000/smmerge" );
+            merge->merger( "10.0.0.15:5000/msmmerge" );
             merge->uri_list ( this->descripter_->fastq( ) );
             merger_->session( )->send_message( move_ptr( merge ) );
         }

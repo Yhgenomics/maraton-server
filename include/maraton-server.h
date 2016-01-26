@@ -11,7 +11,7 @@
 #include <stdio.h> 
 #include "MRT.h"
 
-#define EXECUTOR_TIMEOUT    300000
+#define EXECUTOR_TIMEOUT    10000
 #define LISTEN_PORT         90
 #define RESTAPI_PORT        8080
 
